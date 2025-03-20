@@ -1,0 +1,264 @@
+[
+  {
+    "id": 1,
+    "title": "Ratatouille",
+    "description": "A traditional French vegetable dish with eggplant, zucchini, and tomatoes.",
+    "image": "/images/ratatouille.jpg",
+    "originCategory": { "id": 3, "name": "French" },
+    "typeCategory": { "id": 1, "name": "Main Course" },
+    "prepTime": 20,
+    "totalTime": 60,
+    "difficulty": "Medium",
+    "servings": 4,
+    "ingredients": [
+      { "title": "Eggplant", "amount": "2 units" },
+      { "title": "Zucchini", "amount": "2 units" },
+      { "title": "Tomatoes", "amount": "4 units" },
+      { "title": "Olive oil", "amount": "2 tbsp" },
+      { "title": "Garlic cloves", "amount": "2 units" }
+    ],
+    "steps": [
+      { "title": "Prepare vegetables", "description": "Dice eggplants, zucchinis, and tomatoes." },
+      { "title": "Cook", "description": "Sauté vegetables in olive oil with garlic, then simmer." }
+    ],
+    "favorite": false
+  },
+  {
+    "id": 2,
+    "title": "Apple Pie",
+    "description": "A sweet and classic dessert with a flaky crust filled with spiced apples.",
+    "image": "/images/apple_pie.jpg",
+    "originCategory": { "id": 1, "name": "American" },
+    "typeCategory": { "id": 2, "name": "Dessert" },
+    "prepTime": 30,
+    "totalTime": 90,
+    "difficulty": "Hard",
+    "servings": 6,
+    "ingredients": [
+      { "title": "Apples", "amount": "6 units" },
+      { "title": "Sugar", "amount": "3/4 cup" },
+      { "title": "Flour", "amount": "2.5 cups" },
+      { "title": "Butter", "amount": "1 cup" }
+    ],
+    "steps": [
+      { "title": "Prepare filling", "description": "Peel and slice apples, then mix with sugar and spices." },
+      { "title": "Make crust", "description": "Mix flour and butter, roll into a crust." },
+      { "title": "Assemble and bake", "description": "Fill crust with apples, cover, and bake until golden." }
+    ],
+    "favorite": false
+  },
+  {
+    "id": 3,
+    "title": "Berries Smoothie",
+    "description": "A refreshing blend of mixed berries and yogurt.",
+    "image": "/images/berries_smoothie.jpg",
+    "originCategory": { "id": 6, "name": "Other" },
+    "typeCategory": { "id": 3, "name": "Drink" },
+    "prepTime": 5,
+    "totalTime": 5,
+    "difficulty": "Easy",
+    "servings": 2,
+    "ingredients": [
+      { "title": "Mixed berries", "amount": "1 cup" },
+      { "title": "Yogurt", "amount": "1/2 cup" },
+      { "title": "Milk", "amount": "1/2 cup" },
+      { "title": "Honey", "amount": "1 tbsp" }
+    ],
+    "steps": [
+      { "title": "Blend", "description": "Combine all ingredients in a blender and blend until smooth." }
+    ],
+    "favorite": false
+  },
+  {
+    "id": 4,
+    "title": "Burger",
+    "description": "A juicy beef burger with lettuce, tomato, and cheese.",
+    "image": "/images/burger.jpg",
+    "originCategory": { "id": 1, "name": "American" },
+    "typeCategory": { "id": 1, "name": "Main Course" },
+    "prepTime": 10,
+    "totalTime": 20,
+    "difficulty": "Easy",
+    "servings": 1,
+    "ingredients": [
+      { "title": "Beef patty", "amount": "1 unit" },
+      { "title": "Bun", "amount": "1 unit" },
+      { "title": "Lettuce", "amount": "1 leaf" },
+      { "title": "Tomato", "amount": "1 slice" },
+      { "title": "Cheese", "amount": "1 slice" }
+    ],
+    "steps": [
+      { "title": "Cook patty", "description": "Grill the beef patty until cooked through." },
+      { "title": "Assemble burger", "description": "Place the patty, lettuce, tomato, and cheese in the bun." }
+    ],
+    "favorite": false
+  },
+  {
+    "id": 5,
+    "title": "Butter Chicken",
+    "description": "A creamy and flavorful Indian curry with tender chicken.",
+    "image": "/images/butter_chicken.jpg",
+    "originCategory": { "id": 5, "name": "Indian" },
+    "typeCategory": { "id": 1, "name": "Main Course" },
+    "prepTime": 15,
+    "totalTime": 40,
+    "difficulty": "Medium",
+    "servings": 4,
+    "ingredients": [
+      { "title": "Chicken", "amount": "500g" },
+      { "title": "Tomato paste", "amount": "1/2 cup" },
+      { "title": "Heavy cream", "amount": "1/2 cup" },
+      { "title": "Butter", "amount": "2 tbsp" },
+      { "title": "Spices", "amount": "2 tbsp" }
+    ],
+    "steps": [
+      { "title": "Cook chicken", "description": "Sauté chicken in butter until golden brown." },
+      { "title": "Prepare sauce", "description": "Mix tomato paste, cream, and spices, then simmer." },
+      { "title": "Combine", "description": "Add chicken to sauce and cook for 10 minutes." }
+    ],
+    "favorite": false
+  },
+  {
+    "id": 6,
+    "title": "Crepe",
+    "description": "Thin French pancakes perfect for sweet or savory fillings.",
+    "image": "/images/crepe.jpg",
+    "originCategory": { "id": 3, "name": "French" },
+    "typeCategory": { "id": 2, "name": "Dessert" },
+    "prepTime": 10,
+    "totalTime": 20,
+    "difficulty": "Easy",
+    "servings": 4,
+    "ingredients": [
+      { "title": "Flour", "amount": "1 cup" },
+      { "title": "Milk", "amount": "1.5 cups" },
+      { "title": "Eggs", "amount": "2 units" },
+      { "title": "Butter", "amount": "2 tbsp" },
+      { "title": "Sugar", "amount": "1 tbsp" }
+    ],
+    "steps": [
+      { "title": "Prepare batter", "description": "Mix flour, milk, eggs, melted butter, and sugar." },
+      { "title": "Cook crepes", "description": "Pour batter into a hot pan and cook on both sides." }
+    ],
+    "favorite": false
+  },
+  {
+    "id": 7,
+    "title": "Injera",
+    "description": "A traditional Ethiopian flatbread made from teff flour.",
+    "image": "/images/injera.jpg",
+    "originCategory": { "id": 0, "name": "African" },
+    "typeCategory": { "id": 1, "name": "Main Course" },
+    "prepTime": 10,
+    "totalTime": 48,
+    "difficulty": "Medium",
+    "servings": 8,
+    "ingredients": [
+      { "title": "Teff flour", "amount": "2 cups" },
+      { "title": "Water", "amount": "3 cups" },
+      { "title": "Salt", "amount": "1 tsp" }
+    ],
+    "steps": [
+      { "title": "Prepare batter", "description": "Mix teff flour, water, and salt, then let ferment overnight." },
+      { "title": "Cook injera", "description": "Pour batter onto a hot pan and cook until bubbles form." }
+    ],
+    "favorite": false
+  },
+  {
+    "id": 8,
+    "title": "Pizza",
+    "description": "Classic Italian pizza with a crispy crust, tomato sauce, and cheese.",
+    "image": "/images/pizza.jpg",
+    "originCategory": { "id": 4, "name": "Italian" },
+    "typeCategory": { "id": 1, "name": "Main Course" },
+    "prepTime": 15,
+    "totalTime": 30,
+    "difficulty": "Medium",
+    "servings": 4,
+    "ingredients": [
+      { "title": "Pizza dough", "amount": "1 unit" },
+      { "title": "Tomato sauce", "amount": "1/2 cup" },
+      { "title": "Mozzarella cheese", "amount": "1 cup" },
+      { "title": "Basil leaves", "amount": "4 units" }
+    ],
+    "steps": [
+      { "title": "Prepare base", "description": "Roll out the pizza dough and spread tomato sauce evenly." },
+      { "title": "Add toppings", "description": "Top with mozzarella cheese and basil leaves." },
+      { "title": "Bake", "description": "Bake in a preheated oven at 220°C until golden brown." }
+    ],
+    "favorite": false
+  },
+  {
+    "id": 9,
+    "title": "Ramen",
+    "description": "A comforting Japanese noodle soup with broth, pork, and vegetables.",
+    "image": "/images/ramen.jpg",
+    "originCategory": { "id": 2, "name": "Asian" },
+    "typeCategory": { "id": 1, "name": "Main Course" },
+    "prepTime": 20,
+    "totalTime": 50,
+    "difficulty": "Medium",
+    "servings": 2,
+    "ingredients": [
+      { "title": "Ramen noodles", "amount": "200g" },
+      { "title": "Chicken broth", "amount": "4 cups" },
+      { "title": "Pork belly", "amount": "200g" },
+      { "title": "Soft-boiled egg", "amount": "2 units" },
+      { "title": "Scallions", "amount": "2 tbsp" }
+    ],
+    "steps": [
+      { "title": "Prepare broth", "description": "Simmer chicken broth with seasonings." },
+      { "title": "Cook noodles", "description": "Boil ramen noodles until tender." },
+      { "title": "Assemble ramen", "description": "Add noodles, pork belly, egg, and scallions to the broth." }
+    ],
+    "favorite": false
+  },
+  {
+    "id": 10,
+    "title": "Sangria",
+    "description": "A fruity Spanish punch made with red wine and citrus fruits.",
+    "image": "/images/sangria.jpg",
+    "originCategory": { "id": 6, "name": "Other" },
+    "typeCategory": { "id": 3, "name": "Drink" },
+    "prepTime": 10,
+    "totalTime": 60,
+    "difficulty": "Easy",
+    "servings": 4,
+    "ingredients": [
+      { "title": "Red wine", "amount": "1 bottle" },
+      { "title": "Orange juice", "amount": "1 cup" },
+      { "title": "Lemon slices", "amount": "4 units" },
+      { "title": "Orange slices", "amount": "4 units" },
+      { "title": "Sugar", "amount": "2 tbsp" }
+    ],
+    "steps": [
+      { "title": "Mix ingredients", "description": "Combine wine, orange juice, and sugar in a pitcher." },
+      { "title": "Add fruits", "description": "Add lemon and orange slices to the mixture." },
+      { "title": "Chill", "description": "Refrigerate for 1 hour before serving." }
+    ],
+    "favorite": false
+  },
+  {
+    "id": 11,
+    "title": "Shrimp Bites",
+    "description": "Delicious bite-sized shrimp appetizers with garlic and herbs.",
+    "image": "/images/shrimp_bites.jpg",
+    "originCategory": { "id": 6, "name": "Other" },
+    "typeCategory": { "id": 0, "name": "Starter" },
+    "prepTime": 10,
+    "totalTime": 15,
+    "difficulty": "Easy",
+    "servings": 4,
+    "ingredients": [
+      { "title": "Shrimp", "amount": "200g" },
+      { "title": "Garlic", "amount": "2 cloves" },
+      { "title": "Olive oil", "amount": "2 tbsp" },
+      { "title": "Fresh parsley", "amount": "1 tbsp" }
+    ],
+    "steps": [
+      { "title": "Prepare shrimp", "description": "Clean and devein shrimp." },
+      { "title": "Cook", "description": "Sauté shrimp in olive oil with garlic and parsley." }
+    ],
+    "favorite": false
+  }
+]

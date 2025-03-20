@@ -1,0 +1,9 @@
+[
+  { "id": 0, "name": "African" },
+  { "id": 1, "name": "American" },
+  { "id": 2, "name": "Asian" },
+  { "id": 3, "name": "French" },
+  { "id": 4, "name": "Italian" },
+  { "id": 5, "name": "Indian" },
+  { "id": 6, "name": "Other" }
+]
