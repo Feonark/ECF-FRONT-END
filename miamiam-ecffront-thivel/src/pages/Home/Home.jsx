@@ -14,6 +14,8 @@ function App() {
   const [selectedOriginCat, setSelectedOriginCat] = useState(null);
   const [selectedTypeCat, setSelectedTypeCat] = useState(null);
   const [searchValue, setSearchValue] = useState("");
+  const [favorites, setFavorites] = useState([]);
+  const [showOnlyFav, setShowOnlyFav] = useState(false);
 
   const getRecipes = async () => {
     try {
@@ -43,8 +45,25 @@ function App() {
     }
   };
 
+  const toggleFavorite = (recipeId) => {
+    let updatedFavorites;
+    if (favorites.includes(recipeId)) {
+      updatedFavorites = favorites.filter((id) => id !== recipeId);
+    } else {
+      updatedFavorites = [...favorites, recipeId];
+    }
+    setFavorites(updatedFavorites);
+    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+  };
+
   const applyFilters = () => {
     let filteredData = recipes;
+
+    if (showOnlyFav) {
+      filteredData = filteredData.filter((recipe) =>
+        favorites.includes(recipe.id)
+      );
+    }
 
     if (selectedOriginCat !== null) {
       filteredData = filteredData.filter(
@@ -69,11 +88,16 @@ function App() {
     getRecipes();
     getOriginCategories();
     getTypeCategories();
+
+    const storedFavs = localStorage.getItem("favorites");
+    if (storedFavs) {
+      setFavorites(JSON.parse(storedFavs));
+    }
   }, []);
 
   useEffect(() => {
     applyFilters();
-  }, [selectedOriginCat, selectedTypeCat, searchValue, recipes]);
+  }, [selectedOriginCat, selectedTypeCat, searchValue, recipes, showOnlyFav]);
 
   return (
     <div>
@@ -117,7 +141,9 @@ function App() {
         ))}
       </div>
 
-      <button>Show only fav</button>
+      <button onClick={() => setShowOnlyFav((prev) => !prev)}>
+        {showOnlyFav ? "Show all recipes" : "Show only fav"}
+      </button>
 
       {filteredRecipes.length > 0 ? (
         <div>
@@ -125,7 +151,11 @@ function App() {
             <div key={recipe.id}>
               <div>{recipe.title}</div>
               <div>{recipe.id}</div>
-              <button>Add to fav</button>
+              <button onClick={() => toggleFavorite(recipe.id)}>
+                {favorites.includes(recipe.id)
+                  ? "Remove from fav"
+                  : "Add to fav"}
+              </button>{" "}
             </div>
           ))}
         </div>
