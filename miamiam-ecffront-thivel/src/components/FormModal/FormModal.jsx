@@ -2,19 +2,64 @@ import React, { useState } from "react";
 import "./FormModal.css";
 
 const FormModal = ({ originCategories, typeCategories, difficulties }) => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [image, setImage] = useState(null);
+  const [originCategory, setOriginCategory] = useState("");
+  const [typeCategory, setTypeCategory] = useState("");
+  const [totalTime, setTotalTime] = useState(0);
+  const [prepTime, setPrepTime] = useState(0);
+  const [difficulty, setDifficulty] = useState("");
+  const [servings, setServings] = useState(0);
+
   const [ingredientGroups, setIngredientGroups] = useState([
     { title: "", amount: "" },
   ]);
-
   const [stepGroups, setStepGroups] = useState([
     { title: "", description: "" },
   ]);
+
+  const handleSubmit = () => {
+    const newRecipe = {
+      id: Date.now(),
+      title,
+      description,
+      image,
+      originCategory: originCategories.find(
+        (cat) => cat.id === parseInt(originCategory)
+      ),
+      typeCategory: typeCategories.find(
+        (cat) => cat.id === parseInt(typeCategory)
+      ),
+      prepTime,
+      totalTime,
+      difficulty: difficulties.find((diff) => diff.id === parseInt(difficulty)),
+      servings,
+      ingredients: ingredientGroups,
+      steps: stepGroups,
+    };
+
+    const storedRecipes = JSON.parse(localStorage.getItem("recipes")) || [];
+    storedRecipes.push(newRecipe);
+    localStorage.setItem("recipes", JSON.stringify(storedRecipes));
+
+    alert("Recipe added successfully!");
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => setImage(reader.result);
+      reader.readAsDataURL(file);
+    }
+  };
 
   const addIngredient = () => {
     setIngredientGroups([
       ...ingredientGroups,
       {
-        name: "",
+        title: "",
         quantity: "",
       },
     ]);
@@ -30,7 +75,7 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
     setStepGroups([
       ...stepGroups,
       {
-        name: "",
+        title: "",
         quantity: "",
       },
     ]);
@@ -45,7 +90,13 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
       <div>
         <h1>Add new recipe</h1>
       </div>
-      <form method="post" className="form">
+      <form
+        className="form"
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit();
+        }}
+      >
         {/* GENERAL INFORMATIONS */}
         <div className="form-content__category">
           <h3>General informations</h3>
@@ -53,7 +104,12 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
             <label htmlFor="upload__input" className="form__label">
               <img src="" alt="" />
               <span>Click here</span> to upload your file
-              <input type="file" id="upload__input" accept="image/*" />
+              <input
+                type="file"
+                id="upload__input"
+                accept="image/*"
+                onChange={handleImageUpload}
+              />
               <span>Supported formats: JPG, PNG, BMP</span>
             </label>
             <label htmlFor="recipe__title" className="form__label">
@@ -62,6 +118,7 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
                 type="text"
                 id="recipe__title"
                 placeholder="eg: Berries & Oath Smoothie"
+                onChange={(e) => setTitle(e.target.value)}
               />
             </label>
             <label htmlFor="recipe__description" className="form__label">
@@ -70,12 +127,16 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
                 type="textarea"
                 id="recipe__description"
                 placeholder="eg: Savor the perfect mix of flavors with this berries & oat smoothie, a guaranteed hit for tonight’s dinner with family or friends!"
+                onChange={(e) => setDescription(e.target.value)}
               />
             </label>
             <div>
               <label htmlFor="recipe__country-category">
                 Country category
-                <select id="recipe__country-category">
+                <select
+                  id="recipe__country-category"
+                  onChange={(e) => setOriginCategory(e.target.value)}
+                >
                   <option value={null}>
                     -- Please select a country category --
                   </option>
@@ -87,7 +148,10 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
               </label>
               <label htmlFor="recipe__recipe-category">
                 Recipe category
-                <select id="recipe__recipe-category">
+                <select
+                  id="recipe__recipe-category"
+                  onChange={(e) => setTypeCategory(e.target.value)}
+                >
                   <option value={null}>
                     -- Please select a recipe category --
                   </option>
@@ -208,17 +272,28 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
             <div>
               <label htmlFor="recipe__total-time">
                 Total time (in min)
-                <input type="number" id="recipe__total-time" />
+                <input
+                  type="number"
+                  id="recipe__total-time"
+                  onChange={(e) => setTotalTime(Number(e.target.value))}
+                />
               </label>
               <label htmlFor="recipe__prep-time">
                 Preparation time (in min)
-                <input type="number" id="recipe__prep-time" />
+                <input
+                  type="number"
+                  id="recipe__prep-time"
+                  onChange={(e) => setPrepTime(Number(e.target.value))}
+                />
               </label>
             </div>
             <div>
               <label htmlFor="recipe__difficulty">
                 Difficulty
-                <select id="recipe__difficulty">
+                <select
+                  id="recipe__difficulty"
+                  onChange={(e) => setDifficulty(e.target.value)}
+                >
                   <option value={null}>-- Please select a difficulty --</option>
                   {difficulties &&
                     difficulties.map((difficulty) => (
@@ -228,7 +303,11 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
               </label>
               <label htmlFor="recipe__servings">
                 Number of servings
-                <input type="number" id="recipe__servings" />
+                <input
+                  type="number"
+                  id="recipe__servings"
+                  onChange={(e) => setServings(Number(e.target.value))}
+                />
               </label>
             </div>
           </div>

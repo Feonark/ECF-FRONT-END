@@ -22,9 +22,12 @@ function App() {
 
   const getRecipes = async () => {
     try {
-      const data = await fetchRecipes();
-      setRecipes(data);
-      setFilteredRecipes(data);
+      const localRecipes = JSON.parse(localStorage.getItem("recipes")) || [];
+      const apiRecipes = await fetchRecipes();
+      const combinedRecipes = [...localRecipes, ...apiRecipes];
+
+      setRecipes(combinedRecipes);
+      setFilteredRecipes(combinedRecipes);
     } catch (error) {
       console.error("Error while loading recipes:", error);
     }
@@ -162,6 +165,7 @@ function App() {
         <div>
           {filteredRecipes.map((recipe) => (
             <div key={recipe.id}>
+              <img src={recipe.image} alt="" />
               <div>{recipe.title}</div>
               <div>{recipe.id}</div>
               <button onClick={() => toggleFavorite(recipe.id)}>

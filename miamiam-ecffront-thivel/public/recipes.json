@@ -20,8 +20,7 @@
     "steps": [
       { "title": "Prepare vegetables", "description": "Dice eggplants, zucchinis, and tomatoes." },
       { "title": "Cook", "description": "Sauté vegetables in olive oil with garlic, then simmer." }
-    ],
-    "favorite": false
+    ]
   },
   {
     "id": 2,
@@ -44,8 +43,7 @@
       { "title": "Prepare filling", "description": "Peel and slice apples, then mix with sugar and spices." },
       { "title": "Make crust", "description": "Mix flour and butter, roll into a crust." },
       { "title": "Assemble and bake", "description": "Fill crust with apples, cover, and bake until golden." }
-    ],
-    "favorite": false
+    ]
   },
   {
     "id": 3,
@@ -66,8 +64,7 @@
     ],
     "steps": [
       { "title": "Blend", "description": "Combine all ingredients in a blender and blend until smooth." }
-    ],
-    "favorite": false
+    ]
   },
   {
     "id": 4,
@@ -90,8 +87,7 @@
     "steps": [
       { "title": "Cook patty", "description": "Grill the beef patty until cooked through." },
       { "title": "Assemble burger", "description": "Place the patty, lettuce, tomato, and cheese in the bun." }
-    ],
-    "favorite": false
+    ]
   },
   {
     "id": 5,
@@ -115,8 +111,7 @@
       { "title": "Cook chicken", "description": "Sauté chicken in butter until golden brown." },
       { "title": "Prepare sauce", "description": "Mix tomato paste, cream, and spices, then simmer." },
       { "title": "Combine", "description": "Add chicken to sauce and cook for 10 minutes." }
-    ],
-    "favorite": false
+    ]
   },
   {
     "id": 6,
@@ -139,8 +134,7 @@
     "steps": [
       { "title": "Prepare batter", "description": "Mix flour, milk, eggs, melted butter, and sugar." },
       { "title": "Cook crepes", "description": "Pour batter into a hot pan and cook on both sides." }
-    ],
-    "favorite": false
+    ]
   },
   {
     "id": 7,
@@ -161,8 +155,7 @@
     "steps": [
       { "title": "Prepare batter", "description": "Mix teff flour, water, and salt, then let ferment overnight." },
       { "title": "Cook injera", "description": "Pour batter onto a hot pan and cook until bubbles form." }
-    ],
-    "favorite": false
+    ]
   },
   {
     "id": 8,
@@ -185,8 +178,7 @@
       { "title": "Prepare base", "description": "Roll out the pizza dough and spread tomato sauce evenly." },
       { "title": "Add toppings", "description": "Top with mozzarella cheese and basil leaves." },
       { "title": "Bake", "description": "Bake in a preheated oven at 220°C until golden brown." }
-    ],
-    "favorite": false
+    ]
   },
   {
     "id": 9,
@@ -210,8 +202,7 @@
       { "title": "Prepare broth", "description": "Simmer chicken broth with seasonings." },
       { "title": "Cook noodles", "description": "Boil ramen noodles until tender." },
       { "title": "Assemble ramen", "description": "Add noodles, pork belly, egg, and scallions to the broth." }
-    ],
-    "favorite": false
+    ]
   },
   {
     "id": 10,
@@ -235,8 +226,7 @@
       { "title": "Mix ingredients", "description": "Combine wine, orange juice, and sugar in a pitcher." },
       { "title": "Add fruits", "description": "Add lemon and orange slices to the mixture." },
       { "title": "Chill", "description": "Refrigerate for 1 hour before serving." }
-    ],
-    "favorite": false
+    ]
   },
   {
     "id": 11,
@@ -258,7 +248,6 @@
     "steps": [
       { "title": "Prepare shrimp", "description": "Clean and devein shrimp." },
       { "title": "Cook", "description": "Sauté shrimp in olive oil with garlic and parsley." }
-    ],
-    "favorite": false
+    ]
   }
 ]
