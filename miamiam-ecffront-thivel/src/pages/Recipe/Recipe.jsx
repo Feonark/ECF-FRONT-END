@@ -31,9 +31,15 @@ const Recipe = () => {
       <h1>{recipe.title}</h1>
       <div>
         {recipe.steps &&
-          recipe.steps.map((step) => (
-            <div>
+          recipe.steps.map((step, index) => (
+            <div key={index}>
               {step.title} {step.description}
+            </div>
+          ))}
+        {recipe.ingredients &&
+          recipe.ingredients.map((ingredient, index) => (
+            <div key={index}>
+              {ingredient.title} {ingredient.amount}
             </div>
           ))}
       </div>

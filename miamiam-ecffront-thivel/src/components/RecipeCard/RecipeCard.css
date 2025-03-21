@@ -1,0 +1,67 @@
+.recipe-card {
+position: relative;
+}
+
+.recipe-card__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 5.2rem;
+  overflow: hidden;
+  border: 2px solid var(--primary-color);
+  border-radius: 3.2rem;
+  background-size: cover;
+  repeat: no-repeat;
+}
+
+.triangle {
+  height:20px;
+  width: 100%;
+  background: var(--primary-color);
+  clip-path: polygon(0 100%, 100% 0, 100% 100%, 0% 100%);
+
+}
+
+.recipe-card__title {
+  background-color: var(--primary-color);
+  padding-inline: 2.4rem;
+  padding-block: 2.4rem;
+}
+
+.recipe-card__chips {
+  display: flex;
+  gap: 0.8rem;
+  height: fit-content;
+  padding: 2.4rem;
+}
+
+.recipe-card__chip {
+  display: flex;
+  gap: 0.4rem;
+  padding-inline: 1.6rem;
+  padding-block: 0.6rem;
+  background-color: var(--white);
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color); 
+  border-radius: 99px;
+}
+
+.recipe-card__fav-button {
+  border-style: none;
+  position: absolute;
+  top: -8px;
+  right: 0;
+  repeat: no-repeat;
+  background-size: contain;
+  background-color: var(--white);
+  height: 72px;
+  width: 72px;
+  border-radius: 99px;
+  border: 2px solid var(--primary-color);
+  transition: transform 0.3s ease-in-out;
+}
+
+.faved {
+  transform: rotate(90deg);
+  background-color: var(--action-color);
+}

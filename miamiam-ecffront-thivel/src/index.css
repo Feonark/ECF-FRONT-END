@@ -1,7 +1,10 @@
+/* Reset */
+
 * {
 padding: 0;
 margin: 0;
 box-sizing: border-box;
+text-decoration: none;
 }
 
 html {
@@ -10,4 +13,26 @@ font-size: 62.5%;
 
 li {
 list-style-type: none;
+}
+
+/* General design */
+
+h1 {
+  font-family: "Climate Crisis", sans-serif;
+  color: var(--secondary-color);
+  font-size: 4rem;
+  letter-spacing: 5%;
+}
+
+h3 {
+  font-family: "Vina Sans", sans-serif;
+  color: var(--white);
+  font-size: 4rem;
+  font-weight: 500;
+}
+
+p {
+  font-family: "Grandstander";
+  color: var(--primary-color);
+  font-size: 1.6rem;
 }

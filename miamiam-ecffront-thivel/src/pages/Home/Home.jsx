@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router";
 import {
   fetchRecipes,
   fetchOriginCategories,
@@ -7,6 +6,7 @@ import {
   fetchDifficulties,
 } from "../../utils/api";
 import "./Home.css";
+import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import FormModal from "../../components/FormModal/FormModal";
 
 function App() {
@@ -117,7 +117,8 @@ function App() {
   }, [selectedOriginCat, selectedTypeCat, searchValue, recipes, showOnlyFav]);
 
   return (
-    <div>
+    <div className="container">
+      <h1>Recipes</h1>
       <div>
         <button
           onClick={() => setSelectedOriginCat(null)}
@@ -162,25 +163,13 @@ function App() {
         {showOnlyFav ? "Show all recipes" : "Show only fav"}
       </button>
 
-      {filteredRecipes.length > 0 ? (
-        <div>
-          {filteredRecipes.map((recipe) => (
-            <div key={recipe.id}>
-              <img src={recipe.image} alt="" />
-              <div>{recipe.title}</div>
-              <div>{recipe.id}</div>
-              <button onClick={() => toggleFavorite(recipe.id)}>
-                {favorites.includes(recipe.id)
-                  ? "Remove from fav"
-                  : "Add to fav"}
-              </button>{" "}
-              <Link to={`/recipe/${recipe.id}`}>Y ALLER</Link>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div>Sorry, we haven't found any recipe matching your criterias.</div>
-      )}
+      <div className="recipe-cards__grid">
+        <RecipeCard
+          filteredRecipes={filteredRecipes}
+          toggleFavorite={toggleFavorite}
+          favorites={favorites}
+        />
+      </div>
       <FormModal
         originCategories={originCategories}
         typeCategories={typeCategories}

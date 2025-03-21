@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Climate+Crisis&family=Grandstander:ital,wght@0,100..900;1,100..900&family=Vina+Sans&display=swap');
+
+:root { 
+  /* COLORS */
+  --primary-color: hsl(173, 48%, 11%);
+  --primary--on-primary: hsl(173, 44%, 20%);
+  --primary--faded: hsl(173, 28%, 62%);
+  --primary--background: hsl(175, 100%, 97%);
+  --secondary-color: hsl(0, 82%, 87%);
+  --secondary--faded: hsl(0, 100%, 95%);
+  --white: hsl(0, 0%, 100%);
+  --action-color: hsl(67, 96%, 50%);
+  --error-color: hsl(0, 100%, 66%);
+/* 
+  --climate-crisis: "Climate Crisis", sans-serif;
+  --vina-sans: "Vina Sans", sans-serif;
+  --grandstander: "Grandstander", cursive;
+
+  --h1-size-mb: 4rem;
+  --h2-size-mb: 2.4rem;
+  --h3-size-mb: 2.8rem;
+  --txt-size-mb: 1.6rem;
+
+  --h1-size-dt: 8rem;
+  --h2-size-dt: 4.4rem;
+  --h3-size-dt: 4.8rem;
+  --txt-size-dt: 2rem; 
+  */
+}

@@ -102,7 +102,6 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
           <h3>General informations</h3>
           <div className="form-content__group">
             <label htmlFor="upload__input" className="form__label">
-              <img src="" alt="" />
               <span>Click here</span> to upload your file
               <input
                 type="file"
@@ -142,7 +141,9 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
                   </option>
                   {originCategories &&
                     originCategories.map((originCat) => (
-                      <option value={originCat.id}>{originCat.name}</option>
+                      <option key={originCat.id} value={originCat.id}>
+                        {originCat.name}
+                      </option>
                     ))}
                 </select>
               </label>
@@ -157,7 +158,9 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
                   </option>
                   {typeCategories &&
                     typeCategories.map((typeCat) => (
-                      <option value={typeCat.id}>{typeCat.name}</option>
+                      <option key={typeCat.id} value={typeCat.id}>
+                        {typeCat.name}
+                      </option>
                     ))}
                 </select>
               </label>
@@ -297,7 +300,9 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
                   <option value={null}>-- Please select a difficulty --</option>
                   {difficulties &&
                     difficulties.map((difficulty) => (
-                      <option value={difficulty.id}>{difficulty.name}</option>
+                      <option key={difficulty.id} value={difficulty.id}>
+                        {difficulty.name}
+                      </option>
                     ))}
                 </select>
               </label>
