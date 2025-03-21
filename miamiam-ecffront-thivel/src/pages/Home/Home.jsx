@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router";
 import {
   fetchRecipes,
   fetchOriginCategories,
@@ -173,6 +174,7 @@ function App() {
                   ? "Remove from fav"
                   : "Add to fav"}
               </button>{" "}
+              <Link to={`/recipe/${recipe.id}`}>Y ALLER</Link>
             </div>
           ))}
         </div>
