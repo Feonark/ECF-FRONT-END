@@ -21,3 +21,11 @@ export const fetchTypeCategories = async () => {
   }
   return await response.json();
 };
+
+export const fetchDifficulties = async () => {
+  const response = await fetch('/difficulties.json');
+  if (!response.ok) {
+    throw new Error("Failed to fetch difficulties");
+  }
+  return await response.json();
+};

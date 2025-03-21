@@ -3,14 +3,17 @@ import {
   fetchRecipes,
   fetchOriginCategories,
   fetchTypeCategories,
+  fetchDifficulties,
 } from "../../utils/api";
 import "./Home.css";
+import FormModal from "../../components/FormModal/FormModal";
 
 function App() {
   const [recipes, setRecipes] = useState([]);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [originCategories, setOriginCategories] = useState([]);
   const [typeCategories, setTypeCategories] = useState([]);
+  const [difficulties, setDifficulties] = useState([]);
   const [selectedOriginCat, setSelectedOriginCat] = useState(null);
   const [selectedTypeCat, setSelectedTypeCat] = useState(null);
   const [searchValue, setSearchValue] = useState("");
@@ -42,6 +45,15 @@ function App() {
       setTypeCategories(data);
     } catch (error) {
       console.error("Error while loading type categories:", error);
+    }
+  };
+
+  const getDifficulties = async () => {
+    try {
+      const data = await fetchDifficulties();
+      setDifficulties(data);
+    } catch (error) {
+      console.error("Error while loading difficulties:", error);
     }
   };
 
@@ -88,6 +100,7 @@ function App() {
     getRecipes();
     getOriginCategories();
     getTypeCategories();
+    getDifficulties();
 
     const storedFavs = localStorage.getItem("favorites");
     if (storedFavs) {
@@ -162,6 +175,11 @@ function App() {
       ) : (
         <div>Sorry, we haven't found any recipe matching your criterias.</div>
       )}
+      <FormModal
+        originCategories={originCategories}
+        typeCategories={typeCategories}
+        difficulties={difficulties}
+      />
     </div>
   );
 }

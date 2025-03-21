@@ -8,7 +8,7 @@
     "typeCategory": { "id": 1, "name": "Main Course" },
     "prepTime": 20,
     "totalTime": 60,
-    "difficulty": "Medium",
+    "difficulty": { "id": 1, "name": "Medium" },
     "servings": 4,
     "ingredients": [
       { "title": "Eggplant", "amount": "2 units" },
@@ -32,7 +32,7 @@
     "typeCategory": { "id": 2, "name": "Dessert" },
     "prepTime": 30,
     "totalTime": 90,
-    "difficulty": "Hard",
+    "difficulty": { "id": 2, "name": "Hard" },
     "servings": 6,
     "ingredients": [
       { "title": "Apples", "amount": "6 units" },
@@ -56,7 +56,7 @@
     "typeCategory": { "id": 3, "name": "Drink" },
     "prepTime": 5,
     "totalTime": 5,
-    "difficulty": "Easy",
+    "difficulty": { "id": 0, "name": "Easy" },
     "servings": 2,
     "ingredients": [
       { "title": "Mixed berries", "amount": "1 cup" },
@@ -78,7 +78,7 @@
     "typeCategory": { "id": 1, "name": "Main Course" },
     "prepTime": 10,
     "totalTime": 20,
-    "difficulty": "Easy",
+    "difficulty": { "id": 0, "name": "Easy" },
     "servings": 1,
     "ingredients": [
       { "title": "Beef patty", "amount": "1 unit" },
@@ -102,7 +102,7 @@
     "typeCategory": { "id": 1, "name": "Main Course" },
     "prepTime": 15,
     "totalTime": 40,
-    "difficulty": "Medium",
+    "difficulty": { "id": 1, "name": "Medium" },
     "servings": 4,
     "ingredients": [
       { "title": "Chicken", "amount": "500g" },
@@ -127,7 +127,7 @@
     "typeCategory": { "id": 2, "name": "Dessert" },
     "prepTime": 10,
     "totalTime": 20,
-    "difficulty": "Easy",
+    "difficulty": { "id": 0, "name": "Easy" },
     "servings": 4,
     "ingredients": [
       { "title": "Flour", "amount": "1 cup" },
@@ -151,7 +151,7 @@
     "typeCategory": { "id": 1, "name": "Main Course" },
     "prepTime": 10,
     "totalTime": 48,
-    "difficulty": "Medium",
+    "difficulty": { "id": 1, "name": "Medium" },
     "servings": 8,
     "ingredients": [
       { "title": "Teff flour", "amount": "2 cups" },
@@ -173,7 +173,7 @@
     "typeCategory": { "id": 1, "name": "Main Course" },
     "prepTime": 15,
     "totalTime": 30,
-    "difficulty": "Medium",
+    "difficulty": { "id": 1, "name": "Medium" },
     "servings": 4,
     "ingredients": [
       { "title": "Pizza dough", "amount": "1 unit" },
@@ -197,7 +197,7 @@
     "typeCategory": { "id": 1, "name": "Main Course" },
     "prepTime": 20,
     "totalTime": 50,
-    "difficulty": "Medium",
+    "difficulty": { "id": 1, "name": "Medium" },
     "servings": 2,
     "ingredients": [
       { "title": "Ramen noodles", "amount": "200g" },
@@ -222,7 +222,7 @@
     "typeCategory": { "id": 3, "name": "Drink" },
     "prepTime": 10,
     "totalTime": 60,
-    "difficulty": "Easy",
+    "difficulty": { "id": 0, "name": "Easy" },
     "servings": 4,
     "ingredients": [
       { "title": "Red wine", "amount": "1 bottle" },
@@ -247,7 +247,7 @@
     "typeCategory": { "id": 0, "name": "Starter" },
     "prepTime": 10,
     "totalTime": 15,
-    "difficulty": "Easy",
+    "difficulty": { "id": 0, "name": "Easy" },
     "servings": 4,
     "ingredients": [
       { "title": "Shrimp", "amount": "200g" },

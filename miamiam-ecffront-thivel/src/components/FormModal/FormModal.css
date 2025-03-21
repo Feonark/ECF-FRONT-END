@@ -1,0 +1,21 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  background: rgb(255, 140, 157);
+  gap: 3.2rem;
+}
+
+.form__label {
+  display: flex;
+  flex-direction: column;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.form-content__group {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  background: lightpink;
+}
+
