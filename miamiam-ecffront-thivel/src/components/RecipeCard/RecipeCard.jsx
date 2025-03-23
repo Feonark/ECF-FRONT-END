@@ -9,8 +9,7 @@ import filledStar from "../../assets/images/star-filled.svg";
 const RecipeCard = ({ filteredRecipes, toggleFavorite, favorites }) => {
   return (
     <>
-      {filteredRecipes.length > 0 &&
-        filteredRecipes &&
+      {filteredRecipes.length > 0 && filteredRecipes ? (
         filteredRecipes.map((recipe) => (
           <article className="recipe-card">
             <Link to={`/recipe/${recipe.id}`}>
@@ -28,7 +27,7 @@ const RecipeCard = ({ filteredRecipes, toggleFavorite, favorites }) => {
                     <p>{recipe.difficulty?.name}</p>
                   </div>
                 </div>
-                <div>
+                <div className="recipe-card__bottom">
                   <div className="triangle" />
                   <h3 className="recipe-card__title">{recipe.title}</h3>
                 </div>
@@ -37,7 +36,9 @@ const RecipeCard = ({ filteredRecipes, toggleFavorite, favorites }) => {
 
             <button
               onClick={() => toggleFavorite(recipe.id)}
-              className={`recipe-card__fav-button ${favorites.includes(recipe.id) ? "faved" : ""}`}
+              className={`recipe-card__fav-button ${
+                favorites.includes(recipe.id) ? "faved" : ""
+              }`}
             >
               <img
                 src={favorites.includes(recipe.id) ? filledStar : emptyStar}
@@ -45,27 +46,10 @@ const RecipeCard = ({ filteredRecipes, toggleFavorite, favorites }) => {
               />
             </button>
           </article>
-        ))}
-
-      {/* {filteredRecipes.length > 0 ? (
-        <div>
-          {filteredRecipes.map((recipe) => (
-            <div key={recipe.id}>
-              <img src={recipe.image} alt="" />
-              <div>{recipe.title}</div>
-              <div>{recipe.id}</div>
-              <button onClick={() => toggleFavorite(recipe.id)}>
-                {favorites.includes(recipe.id)
-                  ? "Remove from fav"
-                  : "Add to fav"}
-              </button>{" "}
-              <Link to={`/recipe/${recipe.id}`}>Y ALLER</Link>
-            </div>
-          ))}
-        </div>
+        ))
       ) : (
-        <div>Sorry, we haven't found any recipe matching your criterias.</div>
-      )} */}
+        <p>Sorry, we haven't found any recipe matching your criterias.</p>
+      )}
     </>
   );
 };

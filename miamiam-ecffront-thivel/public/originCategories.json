@@ -1,9 +1,9 @@
 [
-  { "id": 0, "name": "African" },
-  { "id": 1, "name": "American" },
-  { "id": 2, "name": "Asian" },
-  { "id": 3, "name": "French" },
-  { "id": 4, "name": "Italian" },
-  { "id": 5, "name": "Indian" },
-  { "id": 6, "name": "Other" }
+  { "id": 0, "name": "African", "icon": "🍛" },
+  { "id": 1, "name": "American", "icon": "🍔" },
+  { "id": 2, "name": "Asian", "icon": "🍜" },
+  { "id": 3, "name": "French", "icon": "🐌" },
+  { "id": 4, "name": "Italian", "icon": "🍕" },
+  { "id": 5, "name": "Indian", "icon": "🫓" },
+  { "id": 6, "name": "Other", "icon": "🌍" }
 ]

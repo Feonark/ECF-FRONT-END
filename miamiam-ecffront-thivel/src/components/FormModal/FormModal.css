@@ -19,3 +19,18 @@
   background: lightpink;
 }
 
+.modal-header {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1000;
+  padding: 10px;
+}
+
+.modal-footer {
+  position: sticky;
+  bottom: 0;
+  background: white;
+  z-index: 1000;
+  padding: 10px;
+}

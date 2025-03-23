@@ -87,8 +87,8 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
 
   return (
     <div>
-      <div>
-        <h1>Add new recipe</h1>
+      <div className="modal-header">
+        <h2>Add new recipe</h2>
       </div>
       <form
         className="form"
@@ -317,7 +317,7 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
             </div>
           </div>
         </div>
-        <div>
+        <div className="modal-footer">
           <button>Cancel</button>
           <button type="submit">Create recipe</button>
         </div>

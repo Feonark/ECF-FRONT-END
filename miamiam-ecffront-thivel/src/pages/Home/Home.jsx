@@ -8,6 +8,9 @@ import {
 import "./Home.css";
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import FormModal from "../../components/FormModal/FormModal";
+import Logo from "../../assets/images/miamiam-logo.svg";
+import ToggleOffIcon from "../../assets/images/toggle-off.svg";
+import ToggleOnIcon from "../../assets/images/toggle-on.svg";
 
 function App() {
   const [recipes, setRecipes] = useState([]);
@@ -20,6 +23,7 @@ function App() {
   const [searchValue, setSearchValue] = useState("");
   const [favorites, setFavorites] = useState([]);
   const [showOnlyFav, setShowOnlyFav] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const getRecipes = async () => {
     try {
@@ -72,6 +76,10 @@ function App() {
     localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
   };
 
+  const toggleModal = () => {
+    setIsModalOpen((prev) => !prev);
+  };
+
   const applyFilters = () => {
     let filteredData = recipes;
 
@@ -116,65 +124,135 @@ function App() {
     applyFilters();
   }, [selectedOriginCat, selectedTypeCat, searchValue, recipes, showOnlyFav]);
 
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [isModalOpen]);
+
   return (
-    <div className="container">
-      <h1>Recipes</h1>
-      <div>
-        <button
-          onClick={() => setSelectedOriginCat(null)}
-          className={selectedOriginCat === null ? "red" : ""}
-        >
-          All
-        </button>
-        {originCategories.map((originCat) => (
-          <button
-            key={originCat.id}
-            onClick={() => setSelectedOriginCat(originCat.id)}
-            className={selectedOriginCat === originCat.id ? "red" : ""}
-          >
-            {originCat.name}
-          </button>
-        ))}
-      </div>
+    <div className="home-container">
+      <header className="home-header">
+        <img src={Logo} alt="Logo de Miam miam" className="home-logo" />
 
-      <div>
-        <input type="search" onChange={(e) => setSearchValue(e.target.value)} />
-      </div>
+        <div className="header-content">
+          <h1 className="header-title">Recipes</h1>
+          <div className="origin-cat__buttons">
+            <button
+              onClick={() => setSelectedOriginCat(null)}
+              className={`origin-cat__button ${
+                selectedOriginCat === null ? "origin-cat__btn-active" : ""
+              }`}
+            >
+              <span>🌍</span> All
+            </button>
 
-      <div>
-        <button
-          onClick={() => setSelectedTypeCat(null)}
-          className={selectedTypeCat === null ? "red" : ""}
-        >
-          All
-        </button>
-        {typeCategories.map((typeCat) => (
-          <button
-            key={typeCat.id}
-            onClick={() => setSelectedTypeCat(typeCat.id)}
-            className={selectedTypeCat === typeCat.id ? "red" : ""}
-          >
-            {typeCat.name}
-          </button>
-        ))}
-      </div>
+            {originCategories.map((originCat) => (
+              <button
+                key={originCat.id}
+                onClick={() => setSelectedOriginCat(originCat.id)}
+                className={`origin-cat__button ${
+                  selectedOriginCat === originCat.id
+                    ? "origin-cat__btn-active"
+                    : ""
+                }`}
+              >
+                <span>{originCat.icon}</span> {originCat.name}
+              </button>
+            ))}
+          </div>
+        </div>
+      </header>
 
-      <button onClick={() => setShowOnlyFav((prev) => !prev)}>
-        {showOnlyFav ? "Show all recipes" : "Show only fav"}
-      </button>
+      <main className="home-main">
+        <div className="filter-panel">
+          <div className="filter-panel__buttons">
+            <button
+              onClick={() => setSelectedTypeCat(null)}
+              className={`filter-panel__button ${
+                selectedTypeCat === null ? "filter-panel__btn-active" : ""
+              }`}
+            >
+              All
+            </button>
+            {typeCategories.map((typeCat) => (
+              <button
+                key={typeCat.id}
+                onClick={() => setSelectedTypeCat(typeCat.id)}
+                className={`filter-panel__button ${
+                  selectedTypeCat === typeCat.id
+                    ? "filter-panel__btn-active"
+                    : ""
+                }`}
+              >
+                {typeCat.name}
+              </button>
+            ))}
+          </div>
 
-      <div className="recipe-cards__grid">
-        <RecipeCard
-          filteredRecipes={filteredRecipes}
-          toggleFavorite={toggleFavorite}
-          favorites={favorites}
-        />
-      </div>
-      <FormModal
-        originCategories={originCategories}
-        typeCategories={typeCategories}
-        difficulties={difficulties}
-      />
+          <div className="iconed-input">
+            <input
+              type="search"
+              onChange={(e) => setSearchValue(e.target.value)}
+              placeholder="Search"
+              className="filter-panel__search-input"
+            />
+          </div>
+        </div>
+
+        <div className="home-recipes-panel">
+          <div className="home-recipes-panel__header">
+            <p>{filteredRecipes.length} recipes found</p>
+            <div className="home__action-buttons">
+              <button
+                onClick={() => setShowOnlyFav((prev) => !prev)}
+                className="toggle-button"
+              >
+                {showOnlyFav ? "Show only fav" : "Show all recipes"}
+                <div
+                  className={`toggle-container ${
+                    showOnlyFav ? "toggle-container-active" : ""
+                  }`}
+                >
+                  <div
+                    className={`toggle-circle ${
+                      showOnlyFav ? "toggle-circle-active" : ""
+                    }`}
+                  />
+                </div>
+              </button>
+              <button
+                className={`action-button`}
+                onClick={() => setIsModalOpen(true)}
+              >
+                Create recipe
+              </button>
+            </div>
+          </div>
+
+          <div className="recipe-cards__grid">
+            <RecipeCard
+              filteredRecipes={filteredRecipes}
+              toggleFavorite={toggleFavorite}
+              favorites={favorites}
+            />
+          </div>
+        </div>
+      </main>
+
+      {isModalOpen && (
+        <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <FormModal
+              originCategories={originCategories}
+              typeCategories={typeCategories}
+              difficulties={difficulties}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

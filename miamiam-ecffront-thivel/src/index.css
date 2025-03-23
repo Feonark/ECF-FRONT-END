@@ -17,9 +17,25 @@ list-style-type: none;
 
 /* General design */
 
+body {
+  background-color: var(--secondary-color);
+  background-image: url('./assets/images/background.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  background-attachment: fixed;
+}
+
 h1 {
   font-family: "Climate Crisis", sans-serif;
   color: var(--secondary-color);
+  font-size: 4rem;
+  letter-spacing: 5%;
+}
+
+h2 {
+  font-family: "Climate Crisis", sans-serif;
+  color: var(--primary--faded);
   font-size: 4rem;
   letter-spacing: 5%;
 }
@@ -35,4 +51,92 @@ p {
   font-family: "Grandstander";
   color: var(--primary-color);
   font-size: 1.6rem;
+}
+
+button {
+  border-style: none;
+  font-family: "Grandstander";
+  font-size: 1.6rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.action-button {
+  height: 56px;
+  background-color: var(--action-color);
+  color: var(--primary-color);
+  font-weight: 600;
+  border: 2px solid var(--primary-color);
+  border-radius: 16px;
+  padding-inline: 20px;
+}
+
+.action-button:hover {
+  background-color: var(--white);
+}
+
+.toggle-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+}
+
+.toggle-container {
+  display: flex;
+  align-items: center;
+  width: 64px;
+  height: 36px;
+  border-radius: 99px;
+  border: 2px solid var(--primary-color);
+}
+
+.toggle-circle {
+  width: 28px;
+  height: 28px;
+  background-color: var(--primary-color);
+  border-radius: 99px;
+  margin-inline: 2px;
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.toggle-container-active {
+  background-color: var(--primary-color);
+}
+
+.toggle-circle-active {
+  transform: translateX(28px); /* déplace le cercle à droite */
+  background-color: var(--action-color);
+}
+
+input {
+  height: 48px;
+  padding-inline: 16px;
+  border: 2px solid var(--primary--faded);
+  font-family: "Grandstander";
+  font-size: 1.6rem;
+  color: var(--primary--faded);
+  border-radius: 16px;
+}
+
+input:focus {
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+
+@media screen and (min-width: 1280px) { 
+  h1 {
+    font-size: 8rem;
+  }
+
+  h3 {
+    font-size: 4.8rem;
+  }
+
+  p {
+    font-size: 2rem;
+  }
 }

@@ -1,67 +1,87 @@
 .recipe-card {
-position: relative;
+  position: relative;
+  height: 100%;
 }
 
 .recipe-card__content {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 5.2rem;
+  gap: 96px;
   overflow: hidden;
   border: 2px solid var(--primary-color);
-  border-radius: 3.2rem;
+  border-radius: 32px;
   background-size: cover;
   repeat: no-repeat;
+  transition: transform 0.3s ease-in-out;
+}
+
+.recipe-card__content:hover {
+  transform: scale(1.03) rotate(2deg);
 }
 
 .triangle {
-  height:20px;
+  height: 20px;
   width: 100%;
+  margin-bottom: -2px;
   background: var(--primary-color);
-  clip-path: polygon(0 100%, 100% 0, 100% 100%, 0% 100%);
-
+  clip-path: polygon(0 80%, 100% 0, 100% 100%, 0% 100%);
 }
 
 .recipe-card__title {
   background-color: var(--primary-color);
-  padding-inline: 2.4rem;
-  padding-block: 2.4rem;
+  padding: 24px;
 }
 
 .recipe-card__chips {
   display: flex;
-  gap: 0.8rem;
+  flex-wrap: wrap;
+  gap: 8px;
   height: fit-content;
-  padding: 2.4rem;
+  padding: 24px;
 }
 
 .recipe-card__chip {
   display: flex;
-  gap: 0.4rem;
-  padding-inline: 1.6rem;
-  padding-block: 0.6rem;
+  gap: 4px;
+  align-items: center;
+  padding-inline: 16px;
+  height: 32px;
   background-color: var(--white);
   color: var(--primary-color);
   border: 2px solid var(--primary-color); 
   border-radius: 99px;
 }
 
+.recipe-card__chip img {
+  height: 16px;
+}
+
 .recipe-card__fav-button {
-  border-style: none;
   position: absolute;
   top: -8px;
   right: 0;
-  repeat: no-repeat;
   background-size: contain;
   background-color: var(--white);
+  repeat: no-repeat;
   height: 72px;
   width: 72px;
-  border-radius: 99px;
   border: 2px solid var(--primary-color);
+  border-radius: 99px;
   transition: transform 0.3s ease-in-out;
+}
+
+.recipe-card__fav-button:active {
+  transform:scale(1.5);
 }
 
 .faved {
   transform: rotate(90deg);
   background-color: var(--action-color);
+}
+
+@media screen and (min-width: 1280px) {
+  .recipe-card__chip {
+    height: 36px;
+  }
 }
