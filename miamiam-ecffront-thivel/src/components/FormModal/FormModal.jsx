@@ -10,6 +10,7 @@ const FormModal = ({
 }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [rawImage, setRawImage] = useState(null);
   const [image, setImage] = useState(null);
   const [originCategory, setOriginCategory] = useState("");
   const [typeCategory, setTypeCategory] = useState("");
@@ -34,6 +35,17 @@ const FormModal = ({
       case "description":
         if (!value) return "This field is required.";
         if (value.length < 16) return "Must be at least 16 characters.";
+        break;
+      case "image":
+        if (!rawImage) return "Please upload an image.";
+        if (
+          !rawImage.type ||
+          !["image/jpg", "image/jpeg", "image/png", "image/bmp"].includes(
+            rawImage.type
+          )
+        ) {
+          return "Supported formats are JPG, PNG, and BMP.";
+        }
         break;
       case "originCategory":
         if (!value) return "Please select a valid category.";
@@ -72,7 +84,7 @@ const FormModal = ({
         });
         return ingredientErrors.filter((error) => error !== null).join(" ");
 
-      case "stepGroups": // Validation des étapes
+      case "stepGroups":
         const stepErrors = value.map((group, index) => {
           if (!group.title) return `Step ${index + 1} is missing a name.`;
           if (!group.description)
@@ -145,6 +157,7 @@ const FormModal = ({
 
     if (fieldName === "title") setTitle(value);
     if (fieldName === "description") setDescription(value);
+    if (fieldName === "image") setImage(value);
     if (fieldName === "originCategory") setOriginCategory(value);
     if (fieldName === "typeCategory") setTypeCategory(value);
     if (fieldName === "totalTime") setTotalTime(value);
@@ -193,6 +206,7 @@ const FormModal = ({
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
+      setRawImage(file);
       const reader = new FileReader();
       reader.onload = () => setImage(reader.result);
       reader.readAsDataURL(file);
@@ -254,9 +268,14 @@ const FormModal = ({
                 type="file"
                 id="upload__input"
                 accept="image/*"
-                onChange={handleImageUpload}
+                className={errors.image ? "input-error" : ""}
+                onChange={(e) => {
+                  handleImageUpload(e);
+                  handleChange("image", e.target.files[0]);
+                }}
               />
               <span>Supported formats: JPG, PNG, BMP</span>
+              {errors.image && <span className="error">{errors.image}</span>}
             </label>
 
             {/* Recipe title */}
