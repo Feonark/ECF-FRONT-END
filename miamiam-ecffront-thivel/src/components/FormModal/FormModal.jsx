@@ -24,8 +24,102 @@ const FormModal = ({
   const [stepGroups, setStepGroups] = useState([
     { title: "", description: "" },
   ]);
+  const [errors, setErrors] = useState([]);
+
+  const validateField = (fieldName, value) => {
+    switch (fieldName) {
+      case "title":
+        if (value.length < 3) return "Must be at least 3 characters.";
+        if (!value) return "This field is required.";
+        break;
+      case "description":
+        if (!value) return "This field is required.";
+        if (value.length < 16) return "Must be at least 16 characters.";
+        break;
+      case "originCategory":
+        if (!value) return "Please select a valid category.";
+        break;
+      case "typeCategory":
+        if (!value) return "Please select a valid category.";
+        break;
+      case "totalTime":
+        const totalTimeValue = parseFloat(value);
+        if (totalTimeValue >= 1441) return "This number is too high.";
+        if (isNaN(totalTimeValue)) return "This value must be a number.";
+        if (totalTimeValue <= 0) return "This number can't be zero or below.";
+        break;
+      case "prepTime":
+        const prepTimeValue = parseFloat(value);
+        if (prepTimeValue >= 1441) return "This number is too high.";
+        if (isNaN(prepTimeValue)) return "This value must be a number.";
+        if (prepTimeValue <= 0) return "This number can't be zero or below.";
+        break;
+      case "difficulty":
+        if (!value) return "Please select a valid category.";
+        break;
+      case "servings":
+        const servingsValue = parseFloat(value);
+        if (servingsValue >= 1441) return "This number is too high.";
+        if (isNaN(servingsValue)) return "This value must be a number.";
+        if (servingsValue <= 0) return "This number can't be zero or below.";
+        break;
+
+      case "ingredientGroups": // Validation des ingrédients
+        const ingredientErrors = value.map((group, index) => {
+          if (!group.title) return `Ingredient ${index + 1} is missing a name.`;
+          if (!group.amount)
+            return `Ingredient ${index + 1} is missing a quantity.`;
+          return null;
+        });
+        return ingredientErrors.filter((error) => error !== null).join(" ");
+
+      default:
+        return null;
+    }
+    return null;
+  };
+
+  const validateAllFields = () => {
+    const newErrors = {
+      title: validateField("title", title),
+      description: validateField("description", description),
+      image: validateField("image", image),
+      originCategory: validateField("originCategory", originCategory),
+      typeCategory: validateField("typeCategory", typeCategory),
+      totalTime: validateField("totalTime", totalTime),
+      prepTime: validateField("prepTime", prepTime),
+      difficulty: validateField("difficulty", difficulty),
+      servings: validateField("servings", servings),
+      ingredientGroups: validateField("ingredientGroups", ingredientGroups), // Validation des ingrédients
+    };
+
+    setErrors(newErrors);
+    return !Object.values(newErrors).some((error) => error);
+  };
+
+  // Ici rajouter image et tout
+  const handleChange = (fieldName, value) => {
+    if (fieldName === "title") setTitle(value);
+    if (fieldName === "description") setDescription(value);
+    if (fieldName === "originCategory") setOriginCategory(value);
+    if (fieldName === "typeCategory") setTypeCategory(value);
+    if (fieldName === "totalTime") setTotalTime(value);
+    if (fieldName === "prepTime") setPrepTime(value);
+    if (fieldName === "difficulty") setDifficulty(value);
+    if (fieldName === "servings") setServings(value);
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [fieldName]: validateField(fieldName, value),
+    }));
+  };
 
   const handleSubmit = () => {
+    if (!validateAllFields()) {
+      alert("The form must be complete.");
+      return;
+    }
+
     const newRecipe = {
       id: Date.now(),
       title,
@@ -100,13 +194,13 @@ const FormModal = ({
         className="form"
         onSubmit={(e) => {
           e.preventDefault();
-          handleSubmit();
         }}
       >
         {/* GENERAL INFORMATIONS */}
         <div className="form-content__category">
           <h3>General informations</h3>
           <div className="form-content__group">
+            {/* Upload image */}
             <label htmlFor="upload__input" className="form__label upload-input">
               <img src={brokenImage} alt="" />
               <div>
@@ -120,32 +214,46 @@ const FormModal = ({
               />
               <span>Supported formats: JPG, PNG, BMP</span>
             </label>
+
+            {/* Recipe title */}
             <label htmlFor="recipe__title" className="form__label">
               Recipe title
               <input
                 type="text"
                 id="recipe__title"
                 placeholder="eg: Berries & Oath Smoothie"
-                onChange={(e) => setTitle(e.target.value)}
+                className={errors.title ? "input-error" : ""}
+                onChange={(e) => handleChange("title", e.target.value)}
               />
+              {errors.title && <span className="error">{errors.title}</span>}
             </label>
+
+            {/* Recipe description */}
             <label htmlFor="recipe__description" className="form__label">
               Recipe description
               <input
                 type="textarea"
                 id="recipe__description"
                 placeholder="eg: Savor the perfect mix of flavors with this berries & oat smoothie, a guaranteed hit for tonight’s dinner with family or friends!"
-                onChange={(e) => setDescription(e.target.value)}
+                className={errors.description ? "input-error" : ""}
+                onChange={(e) => handleChange("description", e.target.value)}
               />
+              {errors.description && (
+                <span className="error">{errors.description}</span>
+              )}
             </label>
             <div className="form__input-group">
+              {/* Country category */}
               <label htmlFor="recipe__country-category" className="form__label">
                 Country category
                 <select
                   id="recipe__country-category"
-                  onChange={(e) => setOriginCategory(e.target.value)}
+                  className={errors.originCategory ? "input-error" : ""}
+                  onChange={(e) =>
+                    handleChange("originCategory", e.target.value)
+                  }
                 >
-                  <option value={null}>
+                  <option value="">
                     -- Please select a country category --
                   </option>
                   {originCategories &&
@@ -155,14 +263,22 @@ const FormModal = ({
                       </option>
                     ))}
                 </select>
+                {errors.originCategory && (
+                  <span className="error">{errors.originCategory}</span>
+                )}
               </label>
+
+              {/* Recipe category */}
               <label htmlFor="recipe__recipe-category" className="form__label">
                 Recipe category
                 <select
                   id="recipe__recipe-category"
-                  onChange={(e) => setTypeCategory(e.target.value)}
+                  className={errors.typeCategory ? "input-error" : ""}
+                  onChange={(e) => {
+                    handleChange("typeCategory", e.target.value);
+                  }}
                 >
-                  <option value={null}>
+                  <option value="">
                     -- Please select a recipe category --
                   </option>
                   {typeCategories &&
@@ -172,6 +288,9 @@ const FormModal = ({
                       </option>
                     ))}
                 </select>
+                {errors.typeCategory && (
+                  <span className="error">{errors.typeCategory}</span>
+                )}
               </label>
             </div>
           </div>
@@ -183,6 +302,7 @@ const FormModal = ({
           <div className="form-content__group">
             {ingredientGroups.map((group, index) => (
               <div className="item-add-group" key={index}>
+                {/* Ingredient name */}
                 <label
                   htmlFor={`ingredient__title_${index}`}
                   className="form__label"
@@ -199,6 +319,7 @@ const FormModal = ({
                     }}
                   />
                 </label>
+                {/* Ingredient quantity */}
                 <label
                   htmlFor={`ingredient__amount_${index}`}
                   className="form__label"
@@ -218,7 +339,9 @@ const FormModal = ({
                 {index !== 0 && (
                   <button
                     type="button"
-                    onClick={() => removeIngredient(index)}
+                    onClick={() => {
+                      removeIngredient(index);
+                    }}
                     className="remove-button"
                   >
                     Remove
@@ -226,6 +349,9 @@ const FormModal = ({
                 )}
               </div>
             ))}
+            {errors.ingredientGroups && (
+              <span className="error">{errors.ingredientGroups}</span>
+            )}
             <button
               onClick={(e) => {
                 e.preventDefault();
@@ -284,6 +410,9 @@ const FormModal = ({
                 )}
               </div>
             ))}
+            {errors.stepGroups && (
+              <span className="error">{errors.stepGroups}</span>
+            )}
             <button
               onClick={(e) => {
                 e.preventDefault();
@@ -301,31 +430,46 @@ const FormModal = ({
           <h3>Additional information</h3>
           <div className="form-content__group">
             <div className="form__input-group">
+              {/* Total time */}
               <label htmlFor="recipe__total-time" className="form__label">
                 Total time (in min)
                 <input
                   type="number"
                   id="recipe__total-time"
-                  onChange={(e) => setTotalTime(Number(e.target.value))}
+                  placeholder="eg: 50"
+                  className={errors.totalTime ? "input-error" : ""}
+                  onChange={(e) => handleChange("totalTime", e.target.value)}
                 />
+                {errors.totalTime && (
+                  <span className="error">{errors.totalTime}</span>
+                )}
               </label>
+
+              {/* Prep time */}
               <label htmlFor="recipe__prep-time" className="form__label">
                 Preparation time (in min)
                 <input
                   type="number"
                   id="recipe__prep-time"
-                  onChange={(e) => setPrepTime(Number(e.target.value))}
+                  placeholder="eg: 25"
+                  className={errors.prepTime ? "input-error" : ""}
+                  onChange={(e) => handleChange("prepTime", e.target.value)}
                 />
+                {errors.prepTime && (
+                  <span className="error">{errors.prepTime}</span>
+                )}
               </label>
             </div>
             <div className="form__input-group">
+              {/* Difficulty */}
               <label htmlFor="recipe__difficulty" className="form__label">
                 Difficulty
                 <select
                   id="recipe__difficulty"
-                  onChange={(e) => setDifficulty(e.target.value)}
+                  className={errors.difficulty ? "input-error" : ""}
+                  onChange={(e) => handleChange("difficulty", e.target.value)}
                 >
-                  <option value={null}>-- Please select a difficulty --</option>
+                  <option value="">-- Please select a difficulty --</option>
                   {difficulties &&
                     difficulties.map((difficulty) => (
                       <option key={difficulty.id} value={difficulty.id}>
@@ -333,14 +477,24 @@ const FormModal = ({
                       </option>
                     ))}
                 </select>
+                {errors.difficulty && (
+                  <span className="error">{errors.difficulty}</span>
+                )}
               </label>
+
+              {/* Servings */}
               <label htmlFor="recipe__servings" className="form__label">
                 Number of servings
                 <input
                   type="number"
                   id="recipe__servings"
-                  onChange={(e) => setServings(Number(e.target.value))}
+                  placeholder="eg: 5"
+                  className={errors.servings ? "input-error" : ""}
+                  onChange={(e) => handleChange("servings", e.target.value)}
                 />
+                {errors.servings && (
+                  <span className="error">{errors.servings}</span>
+                )}
               </label>
             </div>
           </div>
@@ -354,7 +508,11 @@ const FormModal = ({
         >
           Cancel
         </button>
-        <button type="submit" className="action-button">
+        <button
+          type="submit"
+          className="action-button"
+          onClick={() => handleSubmit()}
+        >
           Create recipe
         </button>
       </div>
