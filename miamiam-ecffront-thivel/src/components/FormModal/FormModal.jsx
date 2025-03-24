@@ -17,7 +17,6 @@ const FormModal = ({
   const [prepTime, setPrepTime] = useState(0);
   const [difficulty, setDifficulty] = useState("");
   const [servings, setServings] = useState(0);
-
   const [ingredientGroups, setIngredientGroups] = useState([
     { title: "", amount: "" },
   ]);
@@ -73,6 +72,15 @@ const FormModal = ({
         });
         return ingredientErrors.filter((error) => error !== null).join(" ");
 
+      case "stepGroups": // Validation des étapes
+        const stepErrors = value.map((group, index) => {
+          if (!group.title) return `Step ${index + 1} is missing a name.`;
+          if (!group.description)
+            return `Step ${index + 1} is missing a description.`;
+          return null;
+        });
+        return stepErrors.filter((error) => error !== null).join(" ");
+
       default:
         return null;
     }
@@ -90,15 +98,51 @@ const FormModal = ({
       prepTime: validateField("prepTime", prepTime),
       difficulty: validateField("difficulty", difficulty),
       servings: validateField("servings", servings),
-      ingredientGroups: validateField("ingredientGroups", ingredientGroups), // Validation des ingrédients
+      ingredientGroups: validateField("ingredientGroups", ingredientGroups),
+      stepGroups: validateField("stepGroups", stepGroups),
     };
 
     setErrors(newErrors);
     return !Object.values(newErrors).some((error) => error);
   };
 
-  // Ici rajouter image et tout
-  const handleChange = (fieldName, value) => {
+  const handleChange = (fieldName, value, index = null) => {
+    if (fieldName === "ingredientTitle" || fieldName === "ingredientAmount") {
+      const updatedGroups = [...ingredientGroups];
+
+      if (fieldName === "ingredientTitle") {
+        updatedGroups[index].title = value;
+      } else if (fieldName === "ingredientAmount") {
+        updatedGroups[index].amount = value;
+      }
+
+      setIngredientGroups(updatedGroups);
+
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        ingredientGroups: validateField("ingredientGroups", updatedGroups),
+      }));
+      return;
+    }
+
+    if (fieldName === "stepTitle" || fieldName === "stepDescription") {
+      const updatedGroups = [...stepGroups];
+
+      if (fieldName === "stepTitle") {
+        updatedGroups[index].title = value;
+      } else if (fieldName === "stepDescription") {
+        updatedGroups[index].description = value;
+      }
+
+      setStepGroups(updatedGroups);
+
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        stepGroups: validateField("stepGroups", updatedGroups),
+      }));
+      return;
+    }
+
     if (fieldName === "title") setTitle(value);
     if (fieldName === "description") setDescription(value);
     if (fieldName === "originCategory") setOriginCategory(value);
@@ -312,11 +356,10 @@ const FormModal = ({
                     type="text"
                     placeholder="eg: Berries"
                     value={group.title}
-                    onChange={(e) => {
-                      const updatedGroups = [...ingredientGroups];
-                      updatedGroups[index].title = e.target.value;
-                      setIngredientGroups(updatedGroups);
-                    }}
+                    className={errors.ingredientGroups ? "input-error" : ""}
+                    onChange={(e) =>
+                      handleChange("ingredientTitle", e.target.value, index)
+                    }
                   />
                 </label>
                 {/* Ingredient quantity */}
@@ -329,11 +372,10 @@ const FormModal = ({
                     type="text"
                     placeholder="eg: 5 tsp"
                     value={group.amount}
-                    onChange={(e) => {
-                      const updatedGroups = [...ingredientGroups];
-                      updatedGroups[index].amount = e.target.value;
-                      setIngredientGroups(updatedGroups);
-                    }}
+                    className={errors.ingredientGroups ? "input-error" : ""}
+                    onChange={(e) =>
+                      handleChange("ingredientAmount", e.target.value, index)
+                    }
                   />
                 </label>
                 {index !== 0 && (
@@ -376,10 +418,9 @@ const FormModal = ({
                     type="text"
                     placeholder="Prepare batter"
                     value={group.title}
+                    className={errors.stepGroups ? "input-error" : ""}
                     onChange={(e) => {
-                      const updatedGroups = [...stepGroups];
-                      updatedGroups[index].title = e.target.value;
-                      setStepGroups(updatedGroups);
+                      handleChange("stepTitle", e.target.value, index);
                     }}
                   />
                 </label>
@@ -392,10 +433,9 @@ const FormModal = ({
                     type="textarea"
                     placeholder="Mix teff flour, water, and salt, then let ferment overnight."
                     value={group.description}
+                    className={errors.stepGroups ? "input-error" : ""}
                     onChange={(e) => {
-                      const updatedGroups = [...stepGroups];
-                      updatedGroups[index].description = e.target.value;
-                      setStepGroups(updatedGroups);
+                      handleChange("stepDescription", e.target.value, index);
                     }}
                   />
                 </label>
