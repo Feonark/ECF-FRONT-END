@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import "./FormModal.css";
+import brokenImage from "../../assets/images/broken-image.svg";
 
-const FormModal = ({ originCategories, typeCategories, difficulties }) => {
+const FormModal = ({
+  originCategories,
+  typeCategories,
+  difficulties,
+  setIsModalOpen,
+}) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
@@ -101,8 +107,11 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
         <div className="form-content__category">
           <h3>General informations</h3>
           <div className="form-content__group">
-            <label htmlFor="upload__input" className="form__label">
-              <span>Click here</span> to upload your file
+            <label htmlFor="upload__input" className="form__label upload-input">
+              <img src={brokenImage} alt="" />
+              <div>
+                <span>Click here</span> to upload your file
+              </div>
               <input
                 type="file"
                 id="upload__input"
@@ -129,8 +138,8 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
                 onChange={(e) => setDescription(e.target.value)}
               />
             </label>
-            <div>
-              <label htmlFor="recipe__country-category">
+            <div className="form__input-group">
+              <label htmlFor="recipe__country-category" className="form__label">
                 Country category
                 <select
                   id="recipe__country-category"
@@ -147,7 +156,7 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
                     ))}
                 </select>
               </label>
-              <label htmlFor="recipe__recipe-category">
+              <label htmlFor="recipe__recipe-category" className="form__label">
                 Recipe category
                 <select
                   id="recipe__recipe-category"
@@ -173,8 +182,11 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
           <h3>Ingredients</h3>
           <div className="form-content__group">
             {ingredientGroups.map((group, index) => (
-              <div className="form-content__input-group" key={index}>
-                <label htmlFor={`ingredient__title_${index}`}>
+              <div className="item-add-group" key={index}>
+                <label
+                  htmlFor={`ingredient__title_${index}`}
+                  className="form__label"
+                >
                   Ingredient name
                   <input
                     type="text"
@@ -187,7 +199,10 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
                     }}
                   />
                 </label>
-                <label htmlFor={`ingredient__amount_${index}`}>
+                <label
+                  htmlFor={`ingredient__amount_${index}`}
+                  className="form__label"
+                >
                   Quantity
                   <input
                     type="text"
@@ -201,7 +216,11 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
                   />
                 </label>
                 {index !== 0 && (
-                  <button type="button" onClick={() => removeIngredient(index)}>
+                  <button
+                    type="button"
+                    onClick={() => removeIngredient(index)}
+                    className="remove-button"
+                  >
                     Remove
                   </button>
                 )}
@@ -212,6 +231,7 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
                 e.preventDefault();
                 addIngredient();
               }}
+              className="secondary-action-button"
             >
               Add ingredient
             </button>
@@ -223,8 +243,8 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
           <h3>Steps</h3>
           <div className="form-content__group">
             {stepGroups.map((group, index) => (
-              <div className="form-content__input-group" key={index}>
-                <label htmlFor={`step__title_${index}`}>
+              <div className="item-add-group" key={index}>
+                <label htmlFor={`step__title_${index}`} className="form__label">
                   Step name
                   <input
                     type="text"
@@ -237,7 +257,10 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
                     }}
                   />
                 </label>
-                <label htmlFor={`step__description_${index}`}>
+                <label
+                  htmlFor={`step__description_${index}`}
+                  className="form__label"
+                >
                   Description
                   <input
                     type="textarea"
@@ -251,7 +274,11 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
                   />
                 </label>
                 {index !== 0 && (
-                  <button type="button" onClick={() => removeStep(index)}>
+                  <button
+                    type="button"
+                    onClick={() => removeStep(index)}
+                    className="remove-button"
+                  >
                     Remove
                   </button>
                 )}
@@ -262,6 +289,7 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
                 e.preventDefault();
                 addStep();
               }}
+              className="secondary-action-button"
             >
               Add step
             </button>
@@ -272,8 +300,8 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
         <div className="form-content__category">
           <h3>Additional information</h3>
           <div className="form-content__group">
-            <div>
-              <label htmlFor="recipe__total-time">
+            <div className="form__input-group">
+              <label htmlFor="recipe__total-time" className="form__label">
                 Total time (in min)
                 <input
                   type="number"
@@ -281,7 +309,7 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
                   onChange={(e) => setTotalTime(Number(e.target.value))}
                 />
               </label>
-              <label htmlFor="recipe__prep-time">
+              <label htmlFor="recipe__prep-time" className="form__label">
                 Preparation time (in min)
                 <input
                   type="number"
@@ -290,8 +318,8 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
                 />
               </label>
             </div>
-            <div>
-              <label htmlFor="recipe__difficulty">
+            <div className="form__input-group">
+              <label htmlFor="recipe__difficulty" className="form__label">
                 Difficulty
                 <select
                   id="recipe__difficulty"
@@ -306,7 +334,7 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
                     ))}
                 </select>
               </label>
-              <label htmlFor="recipe__servings">
+              <label htmlFor="recipe__servings" className="form__label">
                 Number of servings
                 <input
                   type="number"
@@ -317,11 +345,19 @@ const FormModal = ({ originCategories, typeCategories, difficulties }) => {
             </div>
           </div>
         </div>
-        <div className="modal-footer">
-          <button>Cancel</button>
-          <button type="submit">Create recipe</button>
-        </div>
       </form>
+      <div className="modal-footer">
+        <button
+          type="button"
+          onClick={() => setIsModalOpen(false)}
+          className="tertiary-action-button"
+        >
+          Cancel
+        </button>
+        <button type="submit" className="action-button">
+          Create recipe
+        </button>
+      </div>
     </div>
   );
 };

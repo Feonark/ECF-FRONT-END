@@ -35,8 +35,8 @@ h1 {
 
 h2 {
   font-family: "Climate Crisis", sans-serif;
-  color: var(--primary--faded);
-  font-size: 4rem;
+  color: var(--primary-color);
+  font-size: 2.4rem;
   letter-spacing: 5%;
 }
 
@@ -47,10 +47,14 @@ h3 {
   font-weight: 500;
 }
 
-p {
+p, span, label {
   font-family: "Grandstander";
   color: var(--primary-color);
   font-size: 1.6rem;
+}
+
+label {
+  font-weight: 500;
 }
 
 button {
@@ -69,10 +73,59 @@ button {
   border: 2px solid var(--primary-color);
   border-radius: 16px;
   padding-inline: 20px;
+  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
 }
 
 .action-button:hover {
   background-color: var(--white);
+}
+
+.secondary-action-button {
+  height: 44px;
+  background-color: var(--primary--on-primary);
+  color: var(--white);
+  font-weight: 600;
+  border: 2px solid var(--primary-color);
+  border-radius: 16px;
+  padding-inline: 20px;
+  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.secondary-action-button:hover {
+  background-color: var(--white);
+  color: var(--primary-color);
+}
+
+.tertiary-action-button {
+  height: 56px;
+  background-color: transparent;
+  color: var(--primary-color);
+  font-weight: 600;
+  border: 2px solid var(--primary-color);
+  border-radius: 16px;
+  padding-inline: 20px;
+  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.tertiary-action-button:hover {
+  background-color: var(--primary--on-primary);
+  color: var(--white);
+}
+
+.remove-button {
+  height: 44px;
+  background-color: transparent;
+  color: var(--error-color);
+  font-weight: 600;
+  border: 2px solid var(--error-color);
+  border-radius: 16px;
+  padding-inline: 20px;
+  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.remove-button:hover {
+  color: var(--white);
+  background-color: var(--error-color);
 }
 
 .toggle-button {
@@ -126,6 +179,16 @@ input:focus {
   color: var(--primary-color);
 }
 
+select {
+  height: 48px;
+  padding-inline: 16px;
+  border: 2px solid var(--primary--faded);
+  background: var(--white);
+  font-family: "Grandstander";
+  font-size: 1.6rem;
+  color: var(--primary--faded);
+  border-radius: 16px;
+}
 
 @media screen and (min-width: 1280px) { 
   h1 {

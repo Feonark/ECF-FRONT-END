@@ -9,8 +9,6 @@ import "./Home.css";
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import FormModal from "../../components/FormModal/FormModal";
 import Logo from "../../assets/images/miamiam-logo.svg";
-import ToggleOffIcon from "../../assets/images/toggle-off.svg";
-import ToggleOnIcon from "../../assets/images/toggle-on.svg";
 
 function App() {
   const [recipes, setRecipes] = useState([]);
@@ -249,6 +247,7 @@ function App() {
               originCategories={originCategories}
               typeCategories={typeCategories}
               difficulties={difficulties}
+              setIsModalOpen={setIsModalOpen}
             />
           </div>
         </div>
