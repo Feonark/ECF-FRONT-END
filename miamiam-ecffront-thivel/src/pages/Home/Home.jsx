@@ -248,6 +248,7 @@ function App() {
               typeCategories={typeCategories}
               difficulties={difficulties}
               setIsModalOpen={setIsModalOpen}
+              onUpdateRecipes={getRecipes}
             />
           </div>
         </div>

@@ -7,6 +7,7 @@ const FormModal = ({
   typeCategories,
   difficulties,
   setIsModalOpen,
+  onUpdateRecipes,
 }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -26,16 +27,21 @@ const FormModal = ({
   ]);
   const [errors, setErrors] = useState([]);
 
+  // █ █ ▄▀▄ █   █ █▀▄ ▄▀▄ ▀█▀ ██▀ █▀ █ ██▀ █   █▀▄
+  // ▀▄▀ █▀█ █▄▄ █ █▄▀ █▀█  █  █▄▄ █▀ █ █▄▄ █▄▄ █▄▀
+
   const validateField = (fieldName, value) => {
     switch (fieldName) {
       case "title":
         if (value.length < 3) return "Must be at least 3 characters.";
         if (!value) return "This field is required.";
         break;
+
       case "description":
         if (!value) return "This field is required.";
         if (value.length < 16) return "Must be at least 16 characters.";
         break;
+
       case "image":
         if (!rawImage) return "Please upload an image.";
         if (
@@ -47,27 +53,33 @@ const FormModal = ({
           return "Supported formats are JPG, PNG, and BMP.";
         }
         break;
+
       case "originCategory":
         if (!value) return "Please select a valid category.";
         break;
+
       case "typeCategory":
         if (!value) return "Please select a valid category.";
         break;
+
       case "totalTime":
         const totalTimeValue = parseFloat(value);
         if (totalTimeValue >= 1441) return "This number is too high.";
         if (isNaN(totalTimeValue)) return "This value must be a number.";
         if (totalTimeValue <= 0) return "This number can't be zero or below.";
         break;
+
       case "prepTime":
         const prepTimeValue = parseFloat(value);
         if (prepTimeValue >= 1441) return "This number is too high.";
         if (isNaN(prepTimeValue)) return "This value must be a number.";
         if (prepTimeValue <= 0) return "This number can't be zero or below.";
         break;
+
       case "difficulty":
         if (!value) return "Please select a valid category.";
         break;
+
       case "servings":
         const servingsValue = parseFloat(value);
         if (servingsValue >= 1441) return "This number is too high.";
@@ -99,6 +111,9 @@ const FormModal = ({
     return null;
   };
 
+  // █ █ ▄▀▄ █   █ █▀▄ ▄▀▄ ▀█▀ ██▀ ▄▀▄ █   █   █▀ █ ██▀ █   █▀▄ ▄▀▀
+  // ▀▄▀ █▀█ █▄▄ █ █▄▀ █▀█  █  █▄▄ █▀█ █▄▄ █▄▄ █▀ █ █▄▄ █▄▄ █▄▀ ▄█▀
+
   const validateAllFields = () => {
     const newErrors = {
       title: validateField("title", title),
@@ -117,6 +132,9 @@ const FormModal = ({
     setErrors(newErrors);
     return !Object.values(newErrors).some((error) => error);
   };
+
+  // █▄█ ▄▀▄ █▄ █ █▀▄ █   ██▀ ▄▀▀ █▄█ ▄▀▄ █▄ █ ▄▀  ██▀
+  // █ █ █▀█ █ ▀█ █▄▀ █▄▄ █▄▄ ▀▄▄ █ █ █▀█ █ ▀█ ▀▄█ █▄▄
 
   const handleChange = (fieldName, value, index = null) => {
     if (fieldName === "ingredientTitle" || fieldName === "ingredientAmount") {
@@ -171,6 +189,9 @@ const FormModal = ({
     }));
   };
 
+  // █▄█ ▄▀▄ █▄ █ █▀▄ █   ██▀ ▄▀▀ █ █ ██▄ █▄ ▄█ █ ▀█▀
+  // █ █ █▀█ █ ▀█ █▄▀ █▄▄ █▄▄ ▄█▀ ▀▄█ █▄█ █ ▀ █ █  █
+
   const handleSubmit = () => {
     if (!validateAllFields()) {
       alert("The form must be complete.");
@@ -201,6 +222,8 @@ const FormModal = ({
     localStorage.setItem("recipes", JSON.stringify(storedRecipes));
 
     alert("Recipe added successfully!");
+    setIsModalOpen(false);
+    onUpdateRecipes();
   };
 
   const handleImageUpload = (e) => {
