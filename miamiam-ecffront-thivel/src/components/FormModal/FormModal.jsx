@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./FormModal.css";
 import brokenImage from "../../assets/images/broken-image.svg";
 
@@ -43,16 +43,18 @@ const FormModal = ({
         break;
 
       case "image":
-        if (!rawImage) return "Please upload an image.";
+        if (!value) {
+          return "Please upload an image.";
+        }
         if (
-          !rawImage.type ||
+          typeof value === "object" &&
           !["image/jpg", "image/jpeg", "image/png", "image/bmp"].includes(
-            rawImage.type
+            value.type
           )
         ) {
           return "Supported formats are JPG, PNG, and BMP.";
         }
-        break;
+        return null;
 
       case "originCategory":
         if (!value) return "Please select a valid category.";
@@ -118,7 +120,7 @@ const FormModal = ({
     const newErrors = {
       title: validateField("title", title),
       description: validateField("description", description),
-      image: validateField("image", image),
+      image: validateField("image", rawImage),
       originCategory: validateField("originCategory", originCategory),
       typeCategory: validateField("typeCategory", typeCategory),
       totalTime: validateField("totalTime", totalTime),
@@ -128,7 +130,6 @@ const FormModal = ({
       ingredientGroups: validateField("ingredientGroups", ingredientGroups),
       stepGroups: validateField("stepGroups", stepGroups),
     };
-
     setErrors(newErrors);
     return !Object.values(newErrors).some((error) => error);
   };
@@ -175,7 +176,6 @@ const FormModal = ({
 
     if (fieldName === "title") setTitle(value);
     if (fieldName === "description") setDescription(value);
-    if (fieldName === "image") setImage(value);
     if (fieldName === "originCategory") setOriginCategory(value);
     if (fieldName === "typeCategory") setTypeCategory(value);
     if (fieldName === "totalTime") setTotalTime(value);
@@ -187,6 +187,23 @@ const FormModal = ({
       ...prevErrors,
       [fieldName]: validateField(fieldName, value),
     }));
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setRawImage(file);
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImage(reader.result);
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          image: validateField("image", file),
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   // █▄█ ▄▀▄ █▄ █ █▀▄ █   ██▀ ▄▀▀ █ █ ██▄ █▄ ▄█ █ ▀█▀
@@ -224,16 +241,6 @@ const FormModal = ({
     alert("Recipe added successfully!");
     toggleModal();
     onUpdateRecipes();
-  };
-
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setRawImage(file);
-      const reader = new FileReader();
-      reader.onload = () => setImage(reader.result);
-      reader.readAsDataURL(file);
-    }
   };
 
   const addIngredient = () => {
@@ -282,24 +289,40 @@ const FormModal = ({
           <h3>General informations</h3>
           <div className="form-content__group">
             {/* Upload image */}
-            <label htmlFor="upload__input" className="form__label upload-input">
-              <img src={brokenImage} alt="" />
-              <div>
-                <span>Click here</span> to upload your file
-              </div>
+            <label
+              htmlFor="upload__input"
+              className={`form__label upload-input ${
+                errors.image ? "upload-error" : ""
+              }`}
+            >
+              <img
+                src={image ? image : brokenImage}
+                alt=""
+                style={{
+                  width: "160px", // Réduit la largeur à 200px
+                  height: "128px", // Réduit la hauteur à 200px
+                  objectFit: "cover", // Assure que l'image reste proportionnelle
+                  borderRadius: "8px", // Optionnel : ajoute des coins arrondis
+                }}
+              />
+              <p className="upload-input__text">
+                <span className="upload-input__text-span">Click here</span> to
+                upload your file
+              </p>
               <input
                 type="file"
                 id="upload__input"
                 accept="image/*"
-                className={errors.image ? "input-error" : ""}
+                style={{ display: "none" }}
                 onChange={(e) => {
                   handleImageUpload(e);
-                  handleChange("image", e.target.files[0]);
                 }}
               />
-              <span>Supported formats: JPG, PNG, BMP</span>
-              {errors.image && <span className="error">{errors.image}</span>}
+              <span className="upload-input__text-sec">
+                Supported formats: JPG, PNG, BMP
+              </span>
             </label>
+            {errors.image && <span className="error">{errors.image}</span>}
 
             {/* Recipe title */}
             <label htmlFor="recipe__title" className="form__label">
