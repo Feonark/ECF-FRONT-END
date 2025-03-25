@@ -5,7 +5,6 @@ import timerIcon from "../../assets/images/timer.svg";
 import difficultyIcon from "../../assets/images/difficulty-meter.svg";
 import emptyStar from "../../assets/images/star-empty.svg";
 import filledStar from "../../assets/images/star-filled.svg";
-
 const RecipeCard = ({ filteredRecipes, toggleFavorite, favorites }) => {
   return (
     <>
@@ -17,12 +16,12 @@ const RecipeCard = ({ filteredRecipes, toggleFavorite, favorites }) => {
                 className="recipe-card__content"
                 style={{ backgroundImage: `url(${recipe.image})` }}
               >
-                <div className="recipe-card__chips">
-                  <div className="recipe-card__chip">
+                <div className="chips">
+                  <div className="chip">
                     <img src={timerIcon} alt="Difficulty meter icon" />
                     <p>{recipe.totalTime} min</p>
                   </div>
-                  <div className="recipe-card__chip">
+                  <div className="chip">
                     <img src={difficultyIcon} alt="Difficulty meter icon" />
                     <p>{recipe.difficulty?.name}</p>
                   </div>
@@ -33,10 +32,9 @@ const RecipeCard = ({ filteredRecipes, toggleFavorite, favorites }) => {
                 </div>
               </div>
             </Link>
-
             <button
               onClick={() => toggleFavorite(recipe.id)}
-              className={`recipe-card__fav-button ${
+              className={`fav-button card-fav-button ${
                 favorites.includes(recipe.id) ? "faved" : ""
               }`}
             >
@@ -53,5 +51,4 @@ const RecipeCard = ({ filteredRecipes, toggleFavorite, favorites }) => {
     </>
   );
 };
-
 export default RecipeCard;

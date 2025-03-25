@@ -169,6 +169,74 @@ button {
   background-color: var(--action-color);
 }
 
+.fav-button {
+  right: 0;
+  background-size: contain;
+  background-color: var(--white);
+  repeat: no-repeat;
+  height: 72px;
+  width: 72px;
+  border: 2px solid var(--primary-color);
+  border-radius: 99px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.card-fav-button {
+  position: absolute;
+  top: -8px;
+}
+
+.fav-button:active {
+  transform:scale(1.5);
+}
+
+.faved {
+  transform: rotate(90deg);
+  background-color: var(--action-color);
+}
+
+.back-button {
+  height: 72px;
+  width: 72px;
+  repeat: no-repeat;
+  border: 2px solid var(--primary-color);
+  background-color: var(--primary--on-primary);
+  border-radius: 99px;
+  transition: all 0.3s ease; /* Ajoutez une transition fluide */
+}
+
+.back-button:hover {
+  background-color: var(--white);
+}
+
+.back-button:hover img {
+  content: url("./assets/images/arrow-left-hover.svg")
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  height: fit-content;
+  padding: 24px;
+}
+
+.chip {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  padding-inline: 16px;
+  height: 32px;
+  background-color: var(--white);
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color); 
+  border-radius: 99px;
+}
+
+.chip img {
+  height: 16px;
+}
+
 input {
   height: 48px;
   padding-inline: 16px;

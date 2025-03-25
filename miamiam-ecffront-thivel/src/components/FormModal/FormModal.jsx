@@ -6,7 +6,7 @@ const FormModal = ({
   originCategories,
   typeCategories,
   difficulties,
-  setIsModalOpen,
+  toggleModal,
   onUpdateRecipes,
 }) => {
   const [title, setTitle] = useState("");
@@ -222,7 +222,7 @@ const FormModal = ({
     localStorage.setItem("recipes", JSON.stringify(storedRecipes));
 
     alert("Recipe added successfully!");
-    setIsModalOpen(false);
+    toggleModal();
     onUpdateRecipes();
   };
 
@@ -585,7 +585,7 @@ const FormModal = ({
       <div className="modal-footer">
         <button
           type="button"
-          onClick={() => setIsModalOpen(false)}
+          onClick={() => toggleModal()}
           className="tertiary-action-button"
         >
           Cancel

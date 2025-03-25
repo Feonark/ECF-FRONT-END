@@ -8,6 +8,7 @@
   flex-direction: column;
   justify-content: space-between;
   gap: 96px;
+  height: 100%;
   overflow: hidden;
   border: 2px solid var(--primary-color);
   border-radius: 32px;
@@ -29,55 +30,12 @@
 }
 
 .recipe-card__title {
+  width: 100%;
+  max-width: 100%;
   background-color: var(--primary-color);
   padding: 24px;
-}
-
-.recipe-card__chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  height: fit-content;
-  padding: 24px;
-}
-
-.recipe-card__chip {
-  display: flex;
-  gap: 4px;
-  align-items: center;
-  padding-inline: 16px;
-  height: 32px;
-  background-color: var(--white);
-  color: var(--primary-color);
-  border: 2px solid var(--primary-color); 
-  border-radius: 99px;
-}
-
-.recipe-card__chip img {
-  height: 16px;
-}
-
-.recipe-card__fav-button {
-  position: absolute;
-  top: -8px;
-  right: 0;
-  background-size: contain;
-  background-color: var(--white);
-  repeat: no-repeat;
-  height: 72px;
-  width: 72px;
-  border: 2px solid var(--primary-color);
-  border-radius: 99px;
-  transition: transform 0.3s ease-in-out;
-}
-
-.recipe-card__fav-button:active {
-  transform:scale(1.5);
-}
-
-.faved {
-  transform: rotate(90deg);
-  background-color: var(--action-color);
+  max-width: 100%;
+  word-break: break-word;
 }
 
 @media screen and (min-width: 1280px) {

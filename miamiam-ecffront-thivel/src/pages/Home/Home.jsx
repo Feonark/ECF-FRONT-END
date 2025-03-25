@@ -9,7 +9,6 @@ import "./Home.css";
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import FormModal from "../../components/FormModal/FormModal";
 import Logo from "../../assets/images/miamiam-logo.svg";
-
 function App() {
   const [recipes, setRecipes] = useState([]);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
@@ -28,7 +27,6 @@ function App() {
       const localRecipes = JSON.parse(localStorage.getItem("recipes")) || [];
       const apiRecipes = await fetchRecipes();
       const combinedRecipes = [...localRecipes, ...apiRecipes];
-
       setRecipes(combinedRecipes);
       setFilteredRecipes(combinedRecipes);
     } catch (error) {
@@ -80,29 +78,24 @@ function App() {
 
   const applyFilters = () => {
     let filteredData = recipes;
-
     if (showOnlyFav) {
       filteredData = filteredData.filter((recipe) =>
         favorites.includes(recipe.id)
       );
     }
-
     if (selectedOriginCat !== null) {
       filteredData = filteredData.filter(
         (recipe) => recipe.originCategory.id === selectedOriginCat
       );
     }
-
     if (selectedTypeCat !== null) {
       filteredData = filteredData.filter(
         (recipe) => recipe.typeCategory.id === selectedTypeCat
       );
     }
-
     filteredData = filteredData.filter((recipe) =>
       recipe.title.toLowerCase().includes(searchValue.toLowerCase())
     );
-
     setFilteredRecipes(filteredData);
   };
 
@@ -111,7 +104,6 @@ function App() {
     getOriginCategories();
     getTypeCategories();
     getDifficulties();
-
     const storedFavs = localStorage.getItem("favorites");
     if (storedFavs) {
       setFavorites(JSON.parse(storedFavs));
@@ -134,9 +126,7 @@ function App() {
     <div className="home-container">
       <header className="home-header">
         <img src={Logo} alt="Logo de Miam miam" className="home-logo" />
-
         <div className="header-content">
-          <h1 className="header-title">Recipes</h1>
           <div className="origin-cat__buttons">
             <button
               onClick={() => setSelectedOriginCat(null)}
@@ -146,7 +136,6 @@ function App() {
             >
               <span>🌍</span> All
             </button>
-
             {originCategories.map((originCat) => (
               <button
                 key={originCat.id}
@@ -163,7 +152,6 @@ function App() {
           </div>
         </div>
       </header>
-
       <main className="home-main">
         <div className="filter-panel">
           <div className="filter-panel__buttons">
@@ -189,7 +177,6 @@ function App() {
               </button>
             ))}
           </div>
-
           <div className="iconed-input">
             <input
               type="search"
@@ -199,7 +186,6 @@ function App() {
             />
           </div>
         </div>
-
         <div className="home-recipes-panel">
           <div className="home-recipes-panel__header">
             <p>{filteredRecipes.length} recipes found</p>
@@ -221,15 +207,11 @@ function App() {
                   />
                 </div>
               </button>
-              <button
-                className={`action-button`}
-                onClick={() => setIsModalOpen(true)}
-              >
+              <button className={`action-button`} onClick={() => toggleModal()}>
                 Create recipe
               </button>
             </div>
           </div>
-
           <div className="recipe-cards__grid">
             <RecipeCard
               filteredRecipes={filteredRecipes}
@@ -239,15 +221,14 @@ function App() {
           </div>
         </div>
       </main>
-
       {isModalOpen && (
-        <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
+        <div className="modal-overlay" onClick={() => toggleModal()}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
             <FormModal
               originCategories={originCategories}
               typeCategories={typeCategories}
               difficulties={difficulties}
-              setIsModalOpen={setIsModalOpen}
+              toggleModal={toggleModal}
               onUpdateRecipes={getRecipes}
             />
           </div>
@@ -256,5 +237,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
