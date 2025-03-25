@@ -47,7 +47,12 @@
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
-.origin-cat__btn-active {
+.origin-cat__button:hover {
+  background-color: var(--white);
+  color: var(--primary-color);
+}
+
+.origin-cat__btn-active, .origin-cat__btn-active:hover {
   background: var(--action-color);
   color: var(--primary-color);
 }
@@ -94,7 +99,12 @@
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
-.filter-panel__btn-active {
+.filter-panel__button:hover {
+  background-color: var(--white);
+  color: var(--primary-color);
+}
+
+.filter-panel__btn-active, .filter-panel__btn-active:hover {
   background: var(--primary-color);
   color: var(--white);
 }

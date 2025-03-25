@@ -127,6 +127,7 @@ function App() {
       <header className="home-header">
         <img src={Logo} alt="Logo de Miam miam" className="home-logo" />
         <div className="header-content">
+          <h1 className="header-title">Recipes</h1>
           <div className="origin-cat__buttons">
             <button
               onClick={() => setSelectedOriginCat(null)}
