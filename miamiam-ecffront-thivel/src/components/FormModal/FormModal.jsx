@@ -150,7 +150,7 @@ const FormModal = ({
       stepGroups: validateField("stepGroups", stepGroups),
     };
     setErrors(newErrors);
-    return !Object.values(newErrors).some((error) => error); // Ici je prends le tableau de données contenant mon nouvel objet d'erreurs, .some() va vérifier si au moins une valeur dans le tableau est différente de null, sinon elle retourne false. J'inverse le résultat avec ! pour avoir true (+ de sémantique).
+    return !Object.values(newErrors).some((error) => error); // Ici je prends le tableau de données contenant mon nouvel objet d'erreurs, .some() va vérifier si au moins une valeur dans le tableau est différente de null, sinon elle retourne false. J'inverse le résultat avec ! pour avoir true (+ de sémantique par rapport au nom de la fonction).
   };
 
   // █▄█ ▄▀▄ █▄ █ █▀▄ █   ██▀ ▄▀▀ █▄█ ▄▀▄ █▄ █ ▄▀  ██▀
@@ -287,7 +287,7 @@ const FormModal = ({
 
   const removeIngredient = (indexToRemove) => {
     setIngredientGroups(
-      ingredientGroups.filter((_, index) => index !== indexToRemove)
+      ingredientGroups.filter((_, index) => index !== indexToRemove) // On garde que les groupes dont l'index est différent de celui à remove
     );
   };
 
