@@ -32,7 +32,7 @@ const FormModal = ({
   //
   // Je viens valider chaque input individuellement en passant à la fonction le nom de l'input et la valeur entrée par l'utilisateur
   // Les conditions équivalent à des erreurs que la fonction va retourner sous forme de strings
-  // Si aucune condition n'est remplie pour l'input concerné, la fonction retourne null, aucune erreur
+  // Si aucune condition d'erreur n'est remplie pour l'input concerné, la fonction retourne null, aucune erreur (= donc validation)
 
   const validateField = (fieldName, value) => {
     switch (fieldName) {
@@ -95,24 +95,30 @@ const FormModal = ({
       case "ingredientGroups":
         const ingredientErrors = value.map((group, index) => {
           if (!group.title) return `Ingredient ${index + 1} is missing a name.`;
-          if (group.title.length < 3) return "Must be at least 3 characters.";
-          if (group.title.length > 60) return "This name is too long.";
+          if (group.title.length < 3)
+            return `Ingredient ${index + 1} must be at least 3 characters.`;
+          if (group.title.length > 60)
+            return `Ingredient ${index + 1}'s name is too long.`;
           if (!group.amount)
             return `Ingredient ${index + 1} is missing a quantity.`;
-          if (group.amount.length > 15) return "Sorry, this is too long.";
+          if (group.amount.length > 15)
+            return `Sorry, ingredient ${index + 1}'s quantity is too long.`;
           return null;
         });
         return ingredientErrors.filter((error) => error !== null).join(" ");
+      // Ici je filtre les valeurs null pour ne garder que les valeurs contenant des strings d'erreur, sinon je risque d'avoir un null en erreur
 
       case "stepGroups":
         const stepErrors = value.map((group, index) => {
           if (!group.title) return `Step ${index + 1} is missing a name.`;
-          if (group.title.length < 3) return "Must be at least 3 characters.";
-          if (group.title.length > 60) return "This name is too long.";
+          if (group.title.length < 3)
+            return `Step ${index + 1} must be at least 3 characters.`;
+          if (group.title.length > 60)
+            return `Step ${index + 1}'s name is too long.`;
           if (!group.description)
             return `Step ${index + 1} is missing a description.`;
           if (group.description.length > 600)
-            return "This description is too long.";
+            return `Step ${index + 1}'s description is too long.`;
           return null;
         });
         return stepErrors.filter((error) => error !== null).join(" ");
@@ -125,6 +131,9 @@ const FormModal = ({
 
   // █ █ ▄▀▄ █   █ █▀▄ ▄▀▄ ▀█▀ ██▀ ▄▀▄ █   █   █▀ █ ██▀ █   █▀▄ ▄▀▀
   // ▀▄▀ █▀█ █▄▄ █ █▄▀ █▀█  █  █▄▄ █▀█ █▄▄ █▄▄ █▀ █ █▄▄ █▄▄ █▄▀ ▄█▀
+  //
+  // Je viens check la validité de tous les inputs au sein d'un objet dont les propriétés répertorient chaque input et l'erreur remontée par la fonction (ou null)
+  // Je set un nouvel état de mon tableau d'erreurs avec les nouvelles erreurs
 
   const validateAllFields = () => {
     const newErrors = {
@@ -141,31 +150,37 @@ const FormModal = ({
       stepGroups: validateField("stepGroups", stepGroups),
     };
     setErrors(newErrors);
-    return !Object.values(newErrors).some((error) => error);
+    return !Object.values(newErrors).some((error) => error); // Ici je prends le tableau de données contenant mon nouvel objet d'erreurs, .some() va vérifier si au moins une valeur dans le tableau est différente de null, sinon elle retourne false. J'inverse le résultat avec ! pour avoir true (+ de sémantique).
   };
 
   // █▄█ ▄▀▄ █▄ █ █▀▄ █   ██▀ ▄▀▀ █▄█ ▄▀▄ █▄ █ ▄▀  ██▀
   // █ █ █▀█ █ ▀█ █▄▀ █▄▄ █▄▄ ▀▄▄ █ █ █▀█ █ ▀█ ▀▄█ █▄▄
+  //
+  // Cette fonction va être utilisée en amont de la soumission du formulaire, pour vérifier la validité des champs et mettre à jour les messages d'erreur en temps réel dès lors que l'utilisateur effectue des modifications sur les inputs (via onChange).
 
   const handleChange = (fieldName, value, index = null) => {
-    if (fieldName === "ingredientTitle" || fieldName === "ingredientAmount") {
-      const updatedGroups = [...ingredientGroups];
+    // Je commence avec deux inputs particuliers puisque les ingrédients et les étapes sont des groupes d'inputs au lieu d'être des inputs singuliers. Du coup chaque groupe aura un index.
 
+    if (fieldName === "ingredientTitle" || fieldName === "ingredientAmount") {
+      const updatedGroups = [...ingredientGroups]; // Je crée une copie d'ingredientsGroup pour pouvoir le manipuler sans risquer de modifier l'original
+
+      // J'assigne les nouvelles values entrées par l'utilisateur dans le bon groupe au bon index
       if (fieldName === "ingredientTitle") {
         updatedGroups[index].title = value;
       } else if (fieldName === "ingredientAmount") {
         updatedGroups[index].amount = value;
       }
 
-      setIngredientGroups(updatedGroups);
+      setIngredientGroups(updatedGroups); // Je mets à jour l'état d'ingredientGroups avec les nouvelles données
 
       setErrors((prevErrors) => ({
         ...prevErrors,
         ingredientGroups: validateField("ingredientGroups", updatedGroups),
-      }));
-      return;
+      })); // Je mets également à jour l'état des erreurs d'ingredientGroups en prenant garde de considérer l'existence des autres erreurs venant d'autres inputs.
+      return; // Une fois que c'est fini, je n'exécute surtout pas le reste du code, c'est inutile.
     }
 
+    // Exacte même logique que pour les ingrédients
     if (fieldName === "stepTitle" || fieldName === "stepDescription") {
       const updatedGroups = [...stepGroups];
 
@@ -184,6 +199,7 @@ const FormModal = ({
       return;
     }
 
+    // Plus simple que les ingrédients et steps, je viens mettre à jour l'état des inputs concernés avec la nouvelle valeur entrée...
     if (fieldName === "title") setTitle(value);
     if (fieldName === "description") setDescription(value);
     if (fieldName === "originCategory") setOriginCategory(value);
@@ -193,18 +209,22 @@ const FormModal = ({
     if (fieldName === "difficulty") setDifficulty(value);
     if (fieldName === "servings") setServings(value);
 
+    // ...puis je mets également à jour l'état d'erreur du champ.
     setErrors((prevErrors) => ({
       ...prevErrors,
       [fieldName]: validateField(fieldName, value),
     }));
   };
 
+  // Pour l'image, je crée une fonction distincte mais qui vient elle aussi mettre à jour les états de l'input contenant sa valeur et son erreur.
   const handleImageUpload = (e) => {
-    const file = e.target.files[0];
+    const file = e.target.files[0]; // File va prendre la valeur de l'image upload par l'utilisateur
     if (file) {
-      setRawImage(file);
+      setRawImage(file); // Si file existe, j'update l'état avec l'image brute
 
-      const reader = new FileReader();
+      const reader = new FileReader(); // L'objet reader est créé (permet de lire le contenu des fichiers)
+
+      // onload est déclenché quand FileReader a terminé de lire le fichier, j'y update les états image avec l'image encodée en Base64 et errors avec l'erreur s'il y en a.
       reader.onload = () => {
         setImage(reader.result);
         setErrors((prevErrors) => ({
@@ -212,19 +232,21 @@ const FormModal = ({
           image: validateField("image", file),
         }));
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(file); // et ça c'est la lecture du fichier et l'encodage en Base64 de l'URL, comme ça je peux l'utiliser pour afficher le preview de l'image.
     }
   };
 
   // █▄█ ▄▀▄ █▄ █ █▀▄ █   ██▀ ▄▀▀ █ █ ██▄ █▄ ▄█ █ ▀█▀
   // █ █ █▀█ █ ▀█ █▄▀ █▄▄ █▄▄ ▄█▀ ▀▄█ █▄█ █ ▀ █ █  █
-
+  //
+  // Si validateAllFields() retourne false (il y a des erreurs), le code n'est pas exécuté.
   const handleSubmit = () => {
     if (!validateAllFields()) {
       alert("The form must be complete.");
       return;
     }
 
+    // Par contre si elle retourne true, je crée un tableau contenant les valeurs de mes champs renseignés
     const newRecipe = {
       id: Date.now(),
       title,
@@ -244,13 +266,13 @@ const FormModal = ({
       steps: stepGroups,
     };
 
-    const storedRecipes = JSON.parse(localStorage.getItem("recipes")) || [];
-    storedRecipes.push(newRecipe);
-    localStorage.setItem("recipes", JSON.stringify(storedRecipes));
+    const storedRecipes = JSON.parse(localStorage.getItem("recipes")) || []; // Je récupère mes recettes dans le localStorage (si j'en ai, sinon je crée un tableau vide)
+    storedRecipes.push(newRecipe); // Je push mon objet nouvelle recette dedans
+    localStorage.setItem("recipes", JSON.stringify(storedRecipes)); // J'update les données du localStorage avec les nouvelles données
 
     alert("Recipe added successfully!");
-    toggleModal();
-    onUpdateRecipes();
+    toggleModal(); // Je ferme la modale
+    onUpdateRecipes(); // J'update la liste des recettes pour ma Home, afin d'avoir une mise à jour automatique de l'interface
   };
 
   const addIngredient = () => {
