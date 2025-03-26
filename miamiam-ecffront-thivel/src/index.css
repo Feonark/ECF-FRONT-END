@@ -237,9 +237,10 @@ button {
   height: 16px;
 }
 
-input {
+input, textarea {
   height: 48px;
   padding-inline: 16px;
+  padding-block: 16px;
   border: 2px solid var(--primary--faded);
   font-family: "Grandstander";
   font-size: 1.6rem;
@@ -247,7 +248,12 @@ input {
   border-radius: 16px;
 }
 
-input:focus {
+textarea {
+  resize: none;
+  height: 128px;
+}
+
+input:focus, textarea:focus {
   border: 2px solid var(--primary-color);
   color: var(--primary-color);
 }

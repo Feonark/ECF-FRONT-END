@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./FormModal.css";
 import brokenImage from "../../assets/images/broken-image.svg";
 
@@ -29,32 +29,35 @@ const FormModal = ({
 
   // █ █ ▄▀▄ █   █ █▀▄ ▄▀▄ ▀█▀ ██▀ █▀ █ ██▀ █   █▀▄
   // ▀▄▀ █▀█ █▄▄ █ █▄▀ █▀█  █  █▄▄ █▀ █ █▄▄ █▄▄ █▄▀
+  //
+  // Je viens valider chaque input individuellement en passant à la fonction le nom de l'input et la valeur entrée par l'utilisateur
+  // Les conditions équivalent à des erreurs que la fonction va retourner sous forme de strings
+  // Si aucune condition n'est remplie pour l'input concerné, la fonction retourne null, aucune erreur
 
   const validateField = (fieldName, value) => {
     switch (fieldName) {
       case "title":
-        if (value.length < 3) return "Must be at least 3 characters.";
         if (!value) return "This field is required.";
+        if (value.length < 3) return "Must be at least 3 characters.";
+        if (value.length > 50) return "This title is too long.";
         break;
 
       case "description":
         if (!value) return "This field is required.";
-        if (value.length < 16) return "Must be at least 16 characters.";
+        if (value.length > 500) return "This description is too long.";
+        if (value.length < 30) return "Must be at least 30 characters.";
         break;
 
       case "image":
-        if (!value) {
-          return "Please upload an image.";
-        }
+        if (!value) return "Please upload an image.";
         if (
           typeof value === "object" &&
           !["image/jpg", "image/jpeg", "image/png", "image/bmp"].includes(
             value.type
           )
-        ) {
-          return "Supported formats are JPG, PNG, and BMP.";
-        }
-        return null;
+        )
+          return "Sorry, this format is not supported.";
+        break;
 
       case "originCategory":
         if (!value) return "Please select a valid category.";
@@ -89,11 +92,14 @@ const FormModal = ({
         if (servingsValue <= 0) return "This number can't be zero or below.";
         break;
 
-      case "ingredientGroups": // Validation des ingrédients
+      case "ingredientGroups":
         const ingredientErrors = value.map((group, index) => {
           if (!group.title) return `Ingredient ${index + 1} is missing a name.`;
+          if (group.title.length < 3) return "Must be at least 3 characters.";
+          if (group.title.length > 60) return "This name is too long.";
           if (!group.amount)
             return `Ingredient ${index + 1} is missing a quantity.`;
+          if (group.amount.length > 15) return "Sorry, this is too long.";
           return null;
         });
         return ingredientErrors.filter((error) => error !== null).join(" ");
@@ -101,8 +107,12 @@ const FormModal = ({
       case "stepGroups":
         const stepErrors = value.map((group, index) => {
           if (!group.title) return `Step ${index + 1} is missing a name.`;
+          if (group.title.length < 3) return "Must be at least 3 characters.";
+          if (group.title.length > 60) return "This name is too long.";
           if (!group.description)
             return `Step ${index + 1} is missing a description.`;
+          if (group.description.length > 600)
+            return "This description is too long.";
           return null;
         });
         return stepErrors.filter((error) => error !== null).join(" ");
@@ -340,7 +350,7 @@ const FormModal = ({
             {/* Recipe description */}
             <label htmlFor="recipe__description" className="form__label">
               Recipe description
-              <input
+              <textarea
                 type="textarea"
                 id="recipe__description"
                 placeholder="eg: Savor the perfect mix of flavors with this berries & oat smoothie, a guaranteed hit for tonight’s dinner with family or friends!"
@@ -494,7 +504,7 @@ const FormModal = ({
                   className="form__label"
                 >
                   Description
-                  <input
+                  <textarea
                     type="textarea"
                     placeholder="Mix teff flour, water, and salt, then let ferment overnight."
                     value={group.description}

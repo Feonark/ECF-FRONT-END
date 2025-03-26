@@ -5,6 +5,7 @@ import timerIcon from "../../assets/images/timer.svg";
 import difficultyIcon from "../../assets/images/difficulty-meter.svg";
 import emptyStar from "../../assets/images/star-empty.svg";
 import filledStar from "../../assets/images/star-filled.svg";
+
 const RecipeCard = ({ filteredRecipes, toggleFavorite, favorites }) => {
   return (
     <>
