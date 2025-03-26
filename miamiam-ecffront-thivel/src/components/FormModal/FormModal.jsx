@@ -331,10 +331,10 @@ const FormModal = ({
                 src={image ? image : brokenImage}
                 alt=""
                 style={{
-                  width: "160px", // Réduit la largeur à 200px
-                  height: "128px", // Réduit la hauteur à 200px
-                  objectFit: "cover", // Assure que l'image reste proportionnelle
-                  borderRadius: "8px", // Optionnel : ajoute des coins arrondis
+                  width: "160px",
+                  height: "128px",
+                  objectFit: "cover",
+                  borderRadius: "8px",
                 }}
               />
               <p className="upload-input__text">
@@ -443,38 +443,40 @@ const FormModal = ({
           <div className="form-content__group">
             {ingredientGroups.map((group, index) => (
               <div className="item-add-group" key={index}>
-                {/* Ingredient name */}
-                <label
-                  htmlFor={`ingredient__title_${index}`}
-                  className="form__label"
-                >
-                  Ingredient name
-                  <input
-                    type="text"
-                    placeholder="eg: Berries"
-                    value={group.title}
-                    className={errors.ingredientGroups ? "input-error" : ""}
-                    onChange={(e) =>
-                      handleChange("ingredientTitle", e.target.value, index)
-                    }
-                  />
-                </label>
-                {/* Ingredient quantity */}
-                <label
-                  htmlFor={`ingredient__amount_${index}`}
-                  className="form__label"
-                >
-                  Quantity
-                  <input
-                    type="text"
-                    placeholder="eg: 5 tsp"
-                    value={group.amount}
-                    className={errors.ingredientGroups ? "input-error" : ""}
-                    onChange={(e) =>
-                      handleChange("ingredientAmount", e.target.value, index)
-                    }
-                  />
-                </label>
+                <div className="ingredient-group">
+                  {/* Ingredient name */}
+                  <label
+                    htmlFor={`ingredient__title_${index}`}
+                    className="form__label"
+                  >
+                    Ingredient name
+                    <input
+                      type="text"
+                      placeholder="eg: Berries"
+                      value={group.title}
+                      className={errors.ingredientGroups ? "input-error" : ""}
+                      onChange={(e) =>
+                        handleChange("ingredientTitle", e.target.value, index)
+                      }
+                    />
+                  </label>
+                  {/* Ingredient quantity */}
+                  <label
+                    htmlFor={`ingredient__amount_${index}`}
+                    className="form__label"
+                  >
+                    Quantity
+                    <input
+                      type="text"
+                      placeholder="eg: 5 tsp"
+                      value={group.amount}
+                      className={errors.ingredientGroups ? "input-error" : ""}
+                      onChange={(e) =>
+                        handleChange("ingredientAmount", e.target.value, index)
+                      }
+                    />
+                  </label>
+                </div>
                 {index !== 0 && (
                   <button
                     type="button"

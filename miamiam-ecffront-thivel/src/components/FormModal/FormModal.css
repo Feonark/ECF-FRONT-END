@@ -90,6 +90,12 @@
   border-radius: 32px;
 }
 
+.ingredient-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 .modal-footer {
   display: flex;
   flex-direction: column;
@@ -117,5 +123,11 @@
     flex-direction: row;
     justify-content: flex-end;
     padding-inline: 44px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .ingredient-group {
+    flex-direction: row;
   }
 }
