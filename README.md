@@ -34,7 +34,7 @@ Cette application permet aux utilisateurs de rechercher, ajouter et consulter de
 - **Frontend** : React JS.
 - **Navigation** : React Router.
 - **Design** : HTML/CSS avec Flexbox/Grid.
-- **Outils** : Visual Studio Code, Git/GitHub.
+- **Outils** : Visual Studio Code, Git/GitHub, Figma.
 
 ## Instructions d'Installation
 
