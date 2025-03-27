@@ -9,7 +9,8 @@ import "./Home.css";
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import FormModal from "../../components/FormModal/FormModal";
 import Logo from "../../assets/images/miamiam-logo.svg";
-function App() {
+
+function Home() {
   const [recipes, setRecipes] = useState([]);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [originCategories, setOriginCategories] = useState([]);
@@ -136,6 +137,7 @@ function App() {
         <img src={Logo} alt="Logo de Miam miam" className="home-logo" />
         <div className="header-content">
           <h1 className="header-title">Recipes</h1>
+          {/* Origin categories */}
           <div className="origin-cat__buttons">
             <button
               onClick={() => setSelectedOriginCat(null)}
@@ -163,6 +165,7 @@ function App() {
       </header>
       <main className="home-main">
         <div className="filter-panel">
+          {/* Type categories */}
           <div className="filter-panel__buttons">
             <button
               onClick={() => setSelectedTypeCat(null)}
@@ -186,6 +189,7 @@ function App() {
               </button>
             ))}
           </div>
+          {/* Search */}
           <div className="iconed-input">
             <input
               type="search"
@@ -221,6 +225,7 @@ function App() {
               </button>
             </div>
           </div>
+          {/* Cards */}
           <div className="recipe-cards__grid">
             <RecipeCard
               filteredRecipes={filteredRecipes}
@@ -230,6 +235,7 @@ function App() {
           </div>
         </div>
       </main>
+      {/* Modal */}
       {isModalOpen && (
         <div className="modal-overlay" onClick={() => toggleModal()}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
@@ -246,4 +252,4 @@ function App() {
     </div>
   );
 }
-export default App;
+export default Home;
